@@ -1,7 +1,7 @@
 'use strict';
 
 const lineConfig = require('./src/line.config');
-const webhookHandler = require('./webhook.handler');
+const webhookHandler = require('./src/webhook.handler');
 const express = require('express');
 
 const app = express();
