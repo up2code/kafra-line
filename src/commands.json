@@ -1,0 +1,140 @@
+[
+    {
+        "name": "mvpdrop",
+        "type": "image",
+        "description": "ของดรอปที่น่าสนใจจาก MVP",
+        "value": "https://cdn.discordapp.com/attachments/536748889781436416/536860034915631114/1548067289129.png"
+    },
+    {
+        "name": "taming",
+        "type": "image",
+        "description": "จับสัตว์ 100%",
+        "value": "https://media.discordapp.net/attachments/509558028320636930/511069917898866702/pet_taming.png"
+    },
+    {
+        "name": "element",
+        "type": "image",
+        "description": "ตารางธาตุ",
+        "value": "https://media.discordapp.net/attachments/509558028320636930/510738228345831434/ayNKPZH2bWEknNLVCSrE7JRYBGd58m-l2QvlyAOl_SBcKMkP36KH7FblBTmam1UR_RWwdplsQQOmbvL0V6ZoBs2sEJe0rYhAu5YX.png?width=303&height=529"
+    },
+    {
+        "name": "labor",
+        "type": "image",
+        "description": "ตารางการส่งสัตว์ทำงาน",
+        "value": "https://cdn.discordapp.com/attachments/521907108099391489/537507694664220679/Pet_Labory_new.png"
+    },
+    {
+        "name": "lutiedaily",
+        "type": "image",
+        "description": "เควสเมืองหิมะประจำวัน",
+        "value": "https://cdn.discordapp.com/attachments/248701382486392832/445917862704709633/DailyQuest.png"
+    },
+    {
+        "name": "devilwing",
+        "type": "image",
+        "description": "เควสปีกแดง",
+        "value": "https://i.redd.it/qpzmy40ppi921.jpg"
+    },
+    {
+        "name": "runemonk",
+        "type": "image",
+        "description": "รูนสายอาชีพ Monk/Champion",
+        "value": "https://scontent.fbkk5-6.fna.fbcdn.net/v/t1.0-9/31453994_1911932209048220_6098769164212633600_n.jpg?_nc_cat=101&_nc_eui2=AeGHGZfgbEQLy83VicZA1QfUHfRGnXpdt95Mz_juVo_42x1cV__mtGM9ir_toLpjDRueejjl5x9p6S9tLDNtukUNtPJJJCd8DT70_QL_O68WgQ&_nc_ht=scontent.fbkk5-6.fna&oh=db6fa976960fb5c0ab67880539e5c139&oe=5CEA33F3"
+    },
+    {
+        "name": "runepriest",
+        "type": "image",
+        "description": "รูนสายอาชีพ Priest/High Priest",
+        "value": "https://scontent.fbkk5-1.fna.fbcdn.net/v/t1.0-9/31417075_1911932372381537_2328118822734659584_n.jpg?_nc_cat=109&_nc_eui2=AeEebSfNo2g2LtuVZJ4l9ltKQhvFlk-x1MdtQxJPeYN5EpYjiG1Zyk2FHyI90kV8vKmvof45I2IktVKTC_WXpuZQYc7_sbE2as-P0Qm0y9C2sQ&_nc_ht=scontent.fbkk5-1.fna&oh=7b98bbf8a4079eb66780cc880e0c99a9&oe=5CFACAFB"
+    },
+    {
+        "name": "runewizard",
+        "type": "image",
+        "description": "รูนสายอาชีพ Wizard/High Wizard",
+        "value": "https://scontent.fbkk5-6.fna.fbcdn.net/v/t1.0-9/31483963_1911932572381517_8132816738740862976_n.jpg?_nc_cat=102&_nc_eui2=AeGT5apzMc5xnfEtcwAijsMewy9z_qk7t2lUiZxkdxxTfhAoeN07hW4qB9nQRZLC08mP9gYccSvo3jpeIwWRHfDrsLlUQ1E2S-65eW2XVePY0w&_nc_ht=scontent.fbkk5-6.fna&oh=a70d06a1d3f3c4195bbd6694161fa9aa&oe=5CF97174"
+    },
+    {
+        "name": "runeknight",
+        "type": "image",
+        "description": "รูนสายอาชีพ Knight/Lord Knight",
+        "value": "https://scontent.fbkk5-4.fna.fbcdn.net/v/t1.0-9/31408288_1911932792381495_249784255574441984_n.jpg?_nc_cat=110&_nc_eui2=AeE2BelI0wEptXSeMIj9PrDXb-l-_VMYEn5qNsKtPOMvh2P3Ezyq3Ddp0tbGfRBVhi6ca2aXBfiDg4kyoxzgGOQOLT6K2qkARb0JqzusTSac2g&_nc_ht=scontent.fbkk5-4.fna&oh=4a2b4888fe360be12d5331a9a3b39905&oe=5CF5C36E"
+    },
+    {
+        "name": "runepaladin",
+        "type": "image",
+        "description": "รูนสายอาชีพ Crusader/Paladin",
+        "value": "https://scontent.fbkk5-4.fna.fbcdn.net/v/t1.0-9/31432032_1911932935714814_2347584722621693952_n.jpg?_nc_cat=103&_nc_eui2=AeE7xswoEQWM0ShiXkMLXafrz29yUpoWp4VBnGJrPqu23g_yFWxTZhdB13963mb_oPdS1Cs66h0dUFrqjKY3hxcKjs8nylZ5sPB11OUVY4246A&_nc_ht=scontent.fbkk5-4.fna&oh=f850fa8940bebd1807479a00174937e9&oe=5D268808"
+    },
+    {
+        "name": "runesniper",
+        "type": "image",
+        "description": "รูนสายอาชีพ Hunter/Sniper",
+        "value": "https://scontent.fbkk5-3.fna.fbcdn.net/v/t1.0-9/31417044_1911932979048143_9205626791060832256_n.jpg?_nc_cat=111&_nc_eui2=AeHf40MTyqYiHQNhveGewZ057KhtUhd2RDUX6MLNWWEfp5SdyxLpvRFKt9Xi-dwhrD7MCjBupWeGrdosNKQWyITaW9veagDej72wVtWOpus5hA&_nc_ht=scontent.fbkk5-3.fna&oh=53fc5bbe5cc3d4b2cbdf2ebbb0c29f11&oe=5CF55BBD"
+    },
+    {
+        "name": "runebs",
+        "type": "image",
+        "description": "รูนสายอาชีพ Blacksmith/Whitesmith",
+        "value": "https://scontent.fbkk5-3.fna.fbcdn.net/v/t1.0-9/31417188_1911933029048138_9012411240504360960_n.jpg?_nc_cat=105&_nc_eui2=AeHhSB1FfvqFRXghz5QCAN38D0QQo1drislMaLToXSAPadDJZAMA8Kr0sH09uC1jj1zUTK0gDYD9ky7tlag48SOTpWXBv4jXPG3NZeGDmCK6uw&_nc_ht=scontent.fbkk5-3.fna&oh=9bb587f3a96e5b1f9809c16c86a650a4&oe=5CE992D2"
+    },
+    {
+        "name": "runestalker",
+        "type": "image",
+        "description": "รูนสายอาชีพ Rogue/Stalker",
+        "value": "https://i.imgur.com/9GsY6IH.jpg"
+    },
+    {
+        "name": "runesinx",
+        "type": "image",
+        "description": "รูนสายอาชีพ Assassin/Assassin Cross",
+        "value": "https://99porings.com/mobile/guides/runes/assassin%20cross-min.jpg"
+    },
+    {
+        "name": "booster",
+        "type": "url",
+        "description": "ตารางของที่ช่วยเพิ่ม ATK/MATK ถาวร",
+        "value": "http://bit.ly/2NMNDp6"
+    },
+    {
+        "name": "cooking",
+        "type": "url",
+        "description": "รายการอาหารและมอนที่ดรอปวัตถุดิบ",
+        "value": "https://docs.google.com/spreadsheets/d/1RZPCHC9qKQO0b0xgv529cwR-fWQxcfDFGKdjk4k5nT0"
+    },
+    {
+        "name": "et",
+        "type": "url",
+        "description": "ตาราง MVP/Mini 100 ชั้น",
+        "value": "https://www.roguard.net/game/endless-tower"
+    },
+    {
+        "name": "simrune",
+        "type": "url",
+        "description": "เว็บจำลองการเดิน Rune",
+        "value": "https://romelde.github.io/RuneBFS/"
+    },
+    {
+        "name": "ghqa",
+        "type": "file",
+        "description": "คำตอบเควสกาส",
+        "value": "ghqa"
+    },
+    {
+        "name": "aldeqa",
+        "type": "file",
+        "description": "คำตอบเควสนากา",
+        "value": "aldeqa"
+    },
+    {
+        "name": "saferefine",
+        "type": "file",
+        "description": "จำนวนเงินและโอริ/อีลูที่ใช้ในการตีถึง +10 แบบปลอดภัย",
+        "value": "saferefine"
+    },
+    {
+        "name": "slot",
+        "type": "file",
+        "description": "เจาะรูอุปกรณ์ชิ้นไหนที่เมืองไหนบ้าง",
+        "value": "slot"
+    }
+]
