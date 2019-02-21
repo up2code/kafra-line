@@ -1,7 +1,7 @@
 'use strict';
 
 const lineConfig = require('./src/line.config');
-const eventMessageHandler = require('./event-message.handler');
+const eventMessageHandler = require('./src/event-message.handler');
 const express = require('express');
 
 const app = express();
