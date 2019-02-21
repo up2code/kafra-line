@@ -8,9 +8,12 @@ const app = express();
 
 app.post('/callback', lineConfig.middleware, (req, res) => {
   req.body.events.map(event => {
-      if(event != 'message' || event.message.type != 'text') {
-          return;
-      }
+
+    console.log(event);
+    if (event.type !== 'message' || event.message.type !== 'text') {
+      // ignore non-text-message event
+      return;
+    }
 
       console.log(event.message.text);
 
