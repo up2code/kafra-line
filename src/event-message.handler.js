@@ -35,7 +35,5 @@ module.exports = (text, callback) => {
                 }
             });
             break;
-        default:
-            callback(format(botMessage.command_not_found, remainText));
     }
 }
