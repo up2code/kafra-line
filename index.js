@@ -1,6 +1,6 @@
 'use strict';
 
-const lineConfig = require('./line.config');
+const lineConfig = require('./src/line.config');
 const webhookHandler = require('./webhook.handler');
 const express = require('express');
 
