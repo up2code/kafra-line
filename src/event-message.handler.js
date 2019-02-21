@@ -3,6 +3,7 @@ const itemListTemplate = require('../flex_templates/itemList');
 const kafraCmd = require('./kafra.cmd');
 const botMessage = require('./message.default');
 const format = require('string-format');
+const lineMessage = require('./line.message');
 
 const cmdTypeConst = {
     command: 'cmd',
@@ -31,7 +32,7 @@ module.exports = (text, callback) => {
                 if(priceList && priceList.length) {
                     return callback(itemListTemplate(priceList));
                 } else {
-                    return callback(format(botMessage.item_not_found, remainText));
+                    return callback(lineMessage.createTextMessage(format(botMessage.item_not_found, remainText)));
                 }
             });
             break;
