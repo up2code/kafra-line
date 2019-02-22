@@ -11,7 +11,8 @@ const generatePriceDiffBox = (label, priceDiff) => {
     "contents": [
       {
         "type": "text",
-        "text": label
+        "text": label,
+        "size":"xs"
       },
       {
         "type": "filler"
@@ -20,7 +21,9 @@ const generatePriceDiffBox = (label, priceDiff) => {
         "type": "text",
         "text": priceDiff.toFixed(2) + "%",
         "color": priceColor,
-        "weight": "bold"
+        "weight": "bold",
+        "size":"xs",
+        "align": "end"
       }
     ]
   }
