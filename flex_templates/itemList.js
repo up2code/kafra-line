@@ -4,6 +4,6 @@ module.exports = generate = (items) => {
     return {
         type: 'flex',
         altText: 'Search result',
-        contents: { type: 'carousel', contents: items.map(i => itemTemplate(i, i.priceData.price, i.priceData.volume))}
+        contents: { type: 'carousel', contents: items.map(i => itemTemplate(i, i.priceData))}
       }
 };
