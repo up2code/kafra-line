@@ -1,7 +1,7 @@
 const moment = require('moment')
 const poporingConfig = require('../src/poporing.config');
 
-module.exports = generate = (item, price, volume) => {
+module.exports = generate = (item, priceData) => {
 
     let imageUrl = (item.image_url)? [poporingConfig.imageUrl, item.image_url].join('/'): 'https://via.placeholder.com/50x50?text=?';
     let actionUri = poporingConfig.actionUri + item.name;
@@ -50,7 +50,7 @@ module.exports = generate = (item, price, volume) => {
                     },
                     {
                       "type": "text",
-                      "text": "" + (price)? price.toLocaleString() : 'Unknown',
+                      "text": "" + (priceData.price)? priceData.price.toLocaleString() : 'Unknown',
                       "weight": "bold",
                       "margin": "sm",
                       "flex": 0
@@ -76,7 +76,7 @@ module.exports = generate = (item, price, volume) => {
                     },
                     {
                       "type": "text",
-                      "text": "" + (volume)? volume.toLocaleString() : 'Unknown',
+                      "text": "" + (priceData.volume)? priceData.volume.toLocaleString() : 'Unknown',
                       "weight": "bold",
                       "margin": "sm",
                       "flex": 0
@@ -88,6 +88,19 @@ module.exports = generate = (item, price, volume) => {
                       "margin": "sm",
                       "color": "#aaaaaa",
                       "flex": 0
+                    }
+                  ]
+                },
+                {
+                  "type": "box",
+                  "layout": "baseline",
+                  "contents": [
+                    {
+                      "type": "text",
+                      "text": "Last update " + (priceData.timestamp)? moment.unix(priceData.timestamp).fromNow() : 'unknow',
+                      "flex": 0,
+                      "size": "sm",
+                      "color": "#aaaaaa"
                     }
                   ]
                 }
