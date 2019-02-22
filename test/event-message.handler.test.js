@@ -1,5 +1,5 @@
 const eventMessage = require('../src/event-message.handler');
 
-eventMessage('$biotite', message => {
+eventMessage('$trend', message => {
     console.log(JSON.stringify(message))
 })

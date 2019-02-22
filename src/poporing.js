@@ -50,6 +50,15 @@ const getLatestPrices = (itemNames, callback) => {
     .then(response => callback(response.data));
 }
 
+const getTrendingList = callback => {
+    let url = poporingConfig.api + "/get_trending_list";
+    console.log('GET ' + url);
+    
+    return axios.get(url, { headers: poporingConfig.headers })
+        .then(response => response.data)
+        .then(response => callback(response.data.item_list));
+}
+
 const itemContainName = (item, name) => {
     return item.name.toLocaleLowerCase().includes(name) || 
     item.display_name.toLocaleLowerCase().includes(name) || 
@@ -89,5 +98,31 @@ module.exports = {
                 priceList => callback(mapItemPriceData(items, priceList))
             );
         })
+    },
+    getTrendingList: callback => {
+        getTrendingList(trendItems => {
+
+            getItemList(itemList => {
+
+                getLatestPrices(
+                    trendItems.map(i => i.name), 
+                    priceList => callback(mapItemPriceData(trendItems.map(ti => {
+                        const a = itemList.find(il => il.name == ti.name);
+
+                        if(a) {
+                            ti.display_name = a.display_name;
+                            ti.image_url = a.image_url;
+                        } {
+                            ti.display_name = ti.name;
+                        }
+                        
+                        return ti;
+                    }), priceList))
+                );
+            });
+
+
+            
+        });
     }
 }

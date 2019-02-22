@@ -16,6 +16,7 @@ const getMessageCmdType = text => {
     return;
 }
 
+
 module.exports = (text, callback) => {
 
     if(!text) return callback(botMessage.command_not_found);
@@ -24,17 +25,24 @@ module.exports = (text, callback) => {
 
     const remainText = text.substr(1);
 
+    const priceListResponse = priceList => {
+        if(priceList && priceList.length) {
+            return callback(itemListTemplate(priceList));
+        } else {
+            return callback(lineMessage.createTextMessage(format(botMessage.item_not_found, remainText)));
+        }
+    }
+
     switch(cmdType) {
         case cmdTypeConst.command: 
             return kafraCmd.run(remainText, replyMessage => callback(replyMessage));
         case cmdTypeConst.poporing:
-            poporing.getLatestPrices(remainText, priceList => {
-                if(priceList && priceList.length) {
-                    return callback(itemListTemplate(priceList));
-                } else {
-                    return callback(lineMessage.createTextMessage(format(botMessage.item_not_found, remainText)));
-                }
-            });
+            if(remainText == 'trend' || remainText == 'trending') {
+                poporing.getTrendingList(priceListResponse);
+            } else {
+                poporing.getLatestPrices(remainText, priceListResponse);
+            }
+           
             break;
     }
 }
