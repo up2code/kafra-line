@@ -4,7 +4,7 @@ const poporingConfig = require('../src/poporing.config');
 module.exports = generate = (item, price, volume) => {
 
     let imageUrl = (item.image_url)? [poporingConfig.imageUrl, item.image_url].join('/'): 'https://via.placeholder.com/50x50?text=?';
-    let actionUri = [poporingConfig.actionUri, item.name].join();
+    let actionUri = poporingConfig.actionUri + item.name;
     
     return {
         "type": "bubble",
