@@ -1,6 +1,31 @@
 const moment = require('moment')
 const poporingConfig = require('../src/poporing.config');
 
+const generatePriceDiffBox = (label, priceDiff) => {
+
+  const priceColor = (priceDiff < 0)? '#b71c1c' : '#64dd17';
+
+  return {
+    "type": "box",
+    "layout": "horizontal",
+    "contents": [
+      {
+        "type": "text",
+        "text": label
+      },
+      {
+        "type": "filler"
+      },
+      {
+        "type": "text",
+        "text": priceDiff.toFixed(2) + "%",
+        "color": priceColor,
+        "weight": "bold"
+      }
+    ]
+  }
+}
+
 module.exports = generate = (item, priceData) => {
 
     let imageUrl = (item.image_url)? [poporingConfig.imageUrl, item.image_url].join('/'): 'https://via.placeholder.com/50x50?text=?';
@@ -105,7 +130,10 @@ module.exports = generate = (item, priceData) => {
                   ]
                 }
               ]
-            }
+            },
+            generatePriceDiffBox('1 day', priceData.change1day),
+            generatePriceDiffBox('3 day', priceData.change3day),
+            generatePriceDiffBox('7 day', priceData.change7day)
           ]
         }
       }
