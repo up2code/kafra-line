@@ -42,7 +42,10 @@ module.exports = {
         }
 
         if(action.type == 'url') {
-            return callback(lineMessage.createTextMessage(action.value));
+
+            let replyMsg = (action.description) ? action.description + '\n' + action.value : action.value;
+
+            return callback(lineMessage.createTextMessage(replyMsg));
         }
 
         if(action.type == 'file') {
