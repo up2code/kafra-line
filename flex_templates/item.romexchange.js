@@ -1,5 +1,5 @@
 const moment = require('moment')
-const poporingConfig = require('../src/poporing.config');
+const romexchangeConfig = require('../src/romexchange.config');
 
 const generatePriceDiffBox = (label, priceDiff) => {
 
@@ -31,22 +31,10 @@ const generatePriceDiffBox = (label, priceDiff) => {
 
 module.exports = generate = (item, priceData) => {
 
-    let imageUrl = (item.image_url)? [poporingConfig.imageUrl, item.image_url].join('/'): 'https://via.placeholder.com/50x50?text=?';
-    let actionUri = poporingConfig.actionUri + item.name;
+    let actionUri = encodeURI(romexchangeConfig.actionUri + item.name);
     
     return {
         "type": "bubble",
-        "hero": {
-          "type": "image",
-          "url": imageUrl,
-          "size": "md",
-          "aspectRatio": "5:8",
-          "aspectMode": "fit",
-          "action": {
-            "type": "uri",
-            "uri": actionUri
-          }
-        },
         "body": {
           "type": "box",
           "layout": "vertical",
@@ -99,33 +87,7 @@ module.exports = generate = (item, priceData) => {
                   "contents": [
                     {
                       "type": "text",
-                      "text": "Volume: ",
-                      "flex": 0
-                    },
-                    {
-                      "type": "text",
-                      "text": "" + (priceData.volume)? priceData.volume.toLocaleString() : 'Unknown',
-                      "weight": "bold",
-                      "margin": "sm",
-                      "flex": 0
-                    },
-                    {
-                      "type": "text",
-                      "text": "ea",
-                      "size": "sm",
-                      "margin": "sm",
-                      "color": "#aaaaaa",
-                      "flex": 0
-                    }
-                  ]
-                },
-                {
-                  "type": "box",
-                  "layout": "baseline",
-                  "contents": [
-                    {
-                      "type": "text",
-                      "text": "Last update " + (priceData.timestamp)? moment.unix(priceData.timestamp).fromNow() : 'unknow',
+                      "text": "Last update " + (priceData.latest_time)? moment(priceData.latest_time).fromNow() : 'unknow',
                       "flex": 0,
                       "size": "sm",
                       "color": "#aaaaaa"
@@ -134,16 +96,16 @@ module.exports = generate = (item, priceData) => {
                 }
               ]
             },
-            generatePriceDiffBox('1 day', priceData.change1day),
-            generatePriceDiffBox('3 day', priceData.change3day),
-            generatePriceDiffBox('7 day', priceData.change7day),
+            generatePriceDiffBox('Week', priceData.week),
+            generatePriceDiffBox('Month', priceData.month),
+            generatePriceDiffBox('All', priceData.all),
             {
                   "type":"box",
                   "layout":"baseline",
                   "contents":[
                     {
                       "type":"text",
-                      "text":"Source by poporing.life",
+                      "text":"Source by www.romexchange.com",
                       "flex":0,
                       "size":"sm",
                       "color":"#aaaaaa"
