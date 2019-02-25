@@ -3,6 +3,8 @@ const poporingConfig = require('../src/poporing.config');
 
 const generatePriceDiffBox = (label, priceDiff) => {
 
+  priceDiff = (priceDiff) ? priceDiff : 0;
+  
   const priceColor = (priceDiff < 0)? '#b71c1c' : '#64dd17';
 
   return {
@@ -31,6 +33,8 @@ const generatePriceDiffBox = (label, priceDiff) => {
 
 module.exports = generate = (item, priceData) => {
 
+    let price = (priceData.price) ? priceData.price.toLocaleString() : 'Unknown';
+    let volume = (priceData.volume) ? priceData.volume.toLocaleString() : 'Unknown';
     let imageUrl = (item.image_url)? [poporingConfig.imageUrl, item.image_url].join('/'): 'https://via.placeholder.com/50x50?text=?';
     let actionUri = poporingConfig.actionUri + item.name;
     
@@ -78,7 +82,7 @@ module.exports = generate = (item, priceData) => {
                     },
                     {
                       "type": "text",
-                      "text": "" + (priceData.price)? priceData.price.toLocaleString() : 'Unknown',
+                      "text": price,
                       "weight": "bold",
                       "margin": "sm",
                       "flex": 0
@@ -104,7 +108,7 @@ module.exports = generate = (item, priceData) => {
                     },
                     {
                       "type": "text",
-                      "text": "" + (priceData.volume)? priceData.volume.toLocaleString() : 'Unknown',
+                      "text": volume,
                       "weight": "bold",
                       "margin": "sm",
                       "flex": 0
@@ -125,7 +129,7 @@ module.exports = generate = (item, priceData) => {
                   "contents": [
                     {
                       "type": "text",
-                      "text": "Last update " + (priceData.timestamp)? moment.unix(priceData.timestamp).fromNow() : 'unknow',
+                      "text": "Last update " + (priceData.timestamp) ? moment.unix(priceData.timestamp).fromNow() : 'unknow',
                       "flex": 0,
                       "size": "sm",
                       "color": "#aaaaaa"

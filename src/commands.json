@@ -1,9 +1,21 @@
 [
     {
+        "name": "adven",
+        "type": "image",
+        "description": "คู่มือเลื่อนขั้นนักผจญภัย",
+        "value": "https://cdn.discordapp.com/attachments/509621258107748362/522666379061755904/FB_IMG_1544683716056.jpg"
+    },
+    {
         "name": "mvpdrop",
         "type": "image",
         "description": "ของดรอปที่น่าสนใจจาก MVP",
         "value": "https://cdn.discordapp.com/attachments/536748889781436416/536860034915631114/1548067289129.png"
+    },
+    {
+        "name": "minidrop",
+        "type": "image",
+        "description": "ของดรอปที่น่าสนใจจาก Mini boss",
+        "value": "https://cdn.discordapp.com/attachments/509621258107748362/536868206003093515/1548069740645.png"
     },
     {
         "name": "taming",
@@ -90,6 +102,18 @@
         "value": "https://99porings.com/mobile/guides/runes/assassin%20cross-min.jpg"
     },
     {
+        "name": "itemclass3",
+        "type": "image",
+        "description": "Item quest for change to class 3",
+        "value": "https://cdn.discordapp.com/attachments/509621258107748362/548107655680622593/FB_IMG_1550728635829.jpg"
+    },
+    {
+        "name": "poringking",
+        "type": "image",
+        "description": "% การผสมการ์ด",
+        "value": "https://cdn.discordapp.com/attachments/275576712958443520/527407876147380226/image0.jpg"
+    },
+    {
         "name": "booster",
         "type": "url",
         "description": "ตารางของที่ช่วยเพิ่ม ATK/MATK ถาวร",
@@ -100,6 +124,12 @@
         "type": "url",
         "description": "รายการอาหารและมอนที่ดรอปวัตถุดิบ",
         "value": "https://docs.google.com/spreadsheets/d/1RZPCHC9qKQO0b0xgv529cwR-fWQxcfDFGKdjk4k5nT0"
+    },
+    {
+        "name": "woe",
+        "type": "url",
+        "description": "Basic Guide to War of Emperium",
+        "value": "https://docs.google.com/document/d/1zEI4r4mLY2P7VqUkZuQm1jg7Y2a5EkRnBLwTzoBLpXE"
     },
     {
         "name": "et",
