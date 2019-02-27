@@ -6,18 +6,20 @@ const kafraCmd = require('./kafra.cmd');
 const botMessage = require('./message.default');
 const format = require('string-format');
 const lineMessage = require('./line.message');
+const chat = require('./chat');
 
 const cmdTypeConst = {
     command: 'cmd',
     poporing: 'poporing',
-    romexchange: 'romexchange'
+    romexchange: 'romexchange',
+    chat: 'chat'
 }
 
 const getMessageCmdType = text => {
     if(text.startsWith('!')) return cmdTypeConst.command;
     if(text.startsWith('$$')) return cmdTypeConst.romexchange;
     if(text.startsWith('$')) return cmdTypeConst.poporing;
-    return;
+    return cmdTypeConst.chat;
 }
 
 
@@ -57,7 +59,13 @@ module.exports = (text, callback) => {
             } else {
                 poporing.getLatestPrices(remainText, priceListResponse);
             }
-           
+            break;
+        case cmdTypeConst.chat:
+            chat(text).then(answerMessage => {
+                if(answerMessage) {
+                    callback(answerMessage);
+                }
+            });
             break;
     }
 }
