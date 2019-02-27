@@ -64,5 +64,21 @@ module.exports = {
         .catch((err) => {
             console.log('Error getting documents', err);
         });
+    },
+    getAllChat: () => {
+        return db.collection('chat').get()
+        .then((snapshot) => {
+
+            let list = [];
+
+            snapshot.forEach((doc) => {
+                list.push(doc.data());
+            });
+
+            return list;
+          })
+        .catch((err) => {
+            console.log('Error getting documents', err);
+        });
     }
 }
