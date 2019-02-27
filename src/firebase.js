@@ -1,23 +1,14 @@
 const admin = require('firebase-admin');
-const fs = require('fs');
 
 // For local development
 // var serviceAccount = require('./../serviceAccountKey.json');
 
 // For host environment variable
-var serviceAccount = {
-    "type": "service_account",
-    "project_id": "kafra-line",
-    "private_key_id": process.env.FIREBASE_PRIVATE_KEY_ID,
-    "private_key": process.env.FIREBASE_PRIVATE_KEY,
-    "client_email": process.env.FIREBASE_CLIENT_EMAIL,
-    "client_id": process.env.FIREBASE_CLIENT_ID,
-    "auth_uri": process.env.FIREBASE_AUTH_URI,
-    "token_uri": process.env.FIREBASE_TOKEN_URI,
-    "auth_provider_x509_cert_url": process.env.FIREBASE_AUTH_PROVIDER,
-    "client_x509_cert_url": process.env.FIREBASE_CLIENT_CERT
-}  
-
+const keysEnvVar = process.env['FIREBASE_ACCOUNT'];
+if (!keysEnvVar) {
+  throw new Error('The $FIREBASE_ACCOUNT environment variable was not found!');
+}
+var serviceAccount = JSON.parse(keysEnvVar);
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
