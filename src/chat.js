@@ -23,7 +23,7 @@ module.exports = text => {
             case 'text':
                 return lineMessage.createTextMessage(answer.value);
             case 'image':
-                return lineMessage.createImageMessage(answer.value);
+                return lineMessage.createImageMessage(answer.value, answer.value);
         }
     });
 }
