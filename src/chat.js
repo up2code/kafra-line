@@ -8,7 +8,13 @@ module.exports = text => {
     .then(answers => {
         let ans = answers.find(ans => RegExp(ans.match,'g').test(text));
 
-        return (ans)? chance.pickone(ans.answers) : null;
+        if(!ans) return null;
+
+        if(ans.chance) {
+            return (chance.bool({likelihood: ans.chance}))? chance.pickone(ans.answers) : null;
+        }
+
+        return chance.pickone(ans.answers);
     })
     .then(answer => {
         if(!answer) return null;
