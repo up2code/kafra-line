@@ -8,6 +8,8 @@ const format = require('string-format');
 const lineMessage = require('./line.message');
 const chat = require('./chat');
 const gacha = require('./gacha');
+const Chance = require('chance')
+const chance = new Chance();
 
 const cmdTypeConst = {
     command: 'cmd',
@@ -28,7 +30,7 @@ const getMessageCmdType = text => {
 
 module.exports = (text, callback) => {
 
-    if(!text) return callback(botMessage.command_not_found);
+    if(!text) return callback(chance.pickone(botMessage.item_not_found));
 
     const cmdType = getMessageCmdType(text);
 
@@ -38,7 +40,8 @@ module.exports = (text, callback) => {
         if(priceList && priceList.length) {
             return callback(itemListTemplate(priceList));
         } else {
-            return callback(lineMessage.createTextMessage(format(botMessage.item_not_found, remainText)));
+            
+            return callback(lineMessage.createTextMessage(format(chance.pickone(botMessage.item_not_found), remainText)));
         }
     }
 
@@ -46,7 +49,7 @@ module.exports = (text, callback) => {
         if(priceList && priceList.length) {
             return callback(itemListRomExTemplate(priceList));
         } else {
-            return callback(lineMessage.createTextMessage(format(botMessage.item_not_found, remainText)));
+            return callback(lineMessage.createTextMessage(format(chance.pickone(botMessage.item_not_found), remainText)));
         }
     }
 

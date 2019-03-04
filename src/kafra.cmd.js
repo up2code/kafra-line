@@ -4,6 +4,8 @@ const fs = require('fs');
 const botMessage = require('./message.default');
 const format = require('string-format');
 const firebase = require('./firebase');
+const Chance = require('chance')
+const chance = new Chance();
 
 const readReferenceFileContent = (fileName, callback) => fs.readFile('./ref/' + fileName, 'utf8', callback);
 
@@ -39,7 +41,7 @@ module.exports = {
             //const action = cmdList.find(c => c.name == cmd.toLowerCase());
 
             if(!action) {
-                return callback(lineMessage.createTextMessage(format(botMessage.command_not_found, cmd)));
+                return callback(lineMessage.createTextMessage(format(chance.pickone(botMessage.command_not_found), cmd)));
             }
             
             if(action.type == 'image') {
