@@ -97,8 +97,6 @@ module.exports = generate = (item, priceData) => {
               ]
             },
             generatePriceDiffBox('Week', priceData.week),
-            generatePriceDiffBox('Month', priceData.month),
-            generatePriceDiffBox('All', priceData.all),
             {
                   "type":"box",
                   "layout":"baseline",

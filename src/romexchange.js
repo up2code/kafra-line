@@ -32,8 +32,6 @@ module.exports = {
                 let itemSEA = i.sea;
                 i.priceData = {
                     week: itemSEA.week.change,
-                    month: itemSEA.month.change,
-                    all: itemSEA.all.change,
                     price: itemSEA.latest,
                     latest_time: itemSEA.latest_time
                 }
