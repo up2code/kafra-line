@@ -14,7 +14,7 @@ app.post('/callback', lineConfig.middleware, (req, res) => {
       return;
     }
 
-      return eventMessageHandler(event.message.text, message => {
+      return eventMessageHandler(event, message => {
           console.log('Reply :' + JSON.stringify(message));
           lineConfig.client.replyMessage(event.replyToken, message);
       })

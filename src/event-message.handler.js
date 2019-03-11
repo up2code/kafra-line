@@ -10,16 +10,19 @@ const chat = require('./chat');
 const gacha = require('./gacha');
 const Chance = require('chance')
 const chance = new Chance();
+const scheduler = require('./scheduler');
 
 const cmdTypeConst = {
     command: 'cmd',
     poporing: 'poporing',
     romexchange: 'romexchange',
     chat: 'chat',
-    gacha: 'gacha'
+    gacha: 'gacha',
+    reminder: 'reminder'
 }
 
 const getMessageCmdType = text => {
+    if(/^!(remind|เตือน|เตือน.+|แจ้งเตือน|แจ้งเตือน.+)/.test(text)) return cmdTypeConst.reminder;
     if(text.startsWith('!')) return cmdTypeConst.command;
     if(text.startsWith('$$')) return cmdTypeConst.romexchange;
     if(text.startsWith('$')) return cmdTypeConst.poporing;
@@ -27,12 +30,15 @@ const getMessageCmdType = text => {
     return cmdTypeConst.chat;
 }
 
+module.exports = (event, callback) => {
 
-module.exports = (text, callback) => {
+    const text = event.message.text;
 
     if(!text) return callback(chance.pickone(botMessage.item_not_found));
 
     const cmdType = getMessageCmdType(text);
+
+    console.log('command type : ' + cmdType)
 
     const remainText = text.substr(1);
 
@@ -40,7 +46,6 @@ module.exports = (text, callback) => {
         if(priceList && priceList.length) {
             return callback(itemListTemplate(priceList));
         } else {
-            
             return callback(lineMessage.createTextMessage(format(chance.pickone(botMessage.item_not_found), remainText)));
         }
     }
@@ -79,6 +84,16 @@ module.exports = (text, callback) => {
                     callback(answerMessage);
                 }
             });
+            break;
+
+        case cmdTypeConst.reminder:
+            if(event.source.type == 'user') {
+                scheduler.reminderFromText(text, event.source.userId, null)
+                .then(callback);
+            } else if(event.source.type == 'group') {
+                scheduler.reminderFromText(text, event.source.userId, event.source.groupId)
+                .then(callback);
+            }
             break;
     }
 }
