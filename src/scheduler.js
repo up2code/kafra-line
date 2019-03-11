@@ -8,7 +8,7 @@ const incorrectFormatMessage = 'เหมือนจะระบุไม่ถ
 
 function setLINEReminder(date, message) {
 
-    if(!date || !message || !message.groupId || !message.userId || !message.value) {
+    if(!date || !message || (!message.groupId && !message.userId) || !message.value) {
         console.log('Invalid parameter for LINE Reminder');
         return Promise.resolve(lineMessage.createTextMessage(incorrectFormatMessage));
     }
