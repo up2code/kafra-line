@@ -1,7 +1,7 @@
 const schedule = require('node-schedule');
 const moment = require('moment');
 const lineMessage = require('./line.message');
-// const lineConfig = require('./line.config');
+const lineConfig = require('./line.config');
 
 const reminderPattern = /^!(remind|เตือน|เตือน.+|แจ้งเตือน|แจ้งเตือน.+)\s".+"\s(\d{2}:\d{2}|(tomorrow|พรุ่งนี้)\s\d{2}:\d{2}|\d{4}\/\d{2}\/\d{2}\s\d{2}:\d{2})/;
 const incorrectFormatMessage = 'เหมือนจะระบุไม่ถูกรูปแบบนะ ต้องใช้ในรูปแบบประมาณนี้นะคะ\n{เตือน|แจ้งเตือน} "ประโยคที่ต้องการแจ้งเตือน" {เวลาในอนาคต}';
@@ -21,14 +21,14 @@ function setLINEReminder(date, message) {
         
         console.log(JSON.stringify(message) + " to " + refId);
 
-        // lineConfig.client.pushMessage(refId, {
-        //     type: 'text',
-        //     text: message.value
-        // }).then(() => {
-        //     console.log('push reminder message successful')
-        // }).catch(err => {
-        //     console.log(err);
-        // });
+        lineConfig.client.pushMessage(refId, {
+            type: 'text',
+            text: message.value
+        }).then(() => {
+            console.log('push reminder message successful')
+        }).catch(err => {
+            console.log(err);
+        });
     });
 
     return Promise.resolve(lineMessage.createTextMessage('ตั้งการแจ้งเตือน "' + message.value + '" ณ เวลา ' + moment(date).calendar()));
