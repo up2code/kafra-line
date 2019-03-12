@@ -161,7 +161,15 @@ module.exports = {
         getItemList(itemList => {
             
             getAllLatestPrices(items => {
-                let cards = items.filter(i => i.item_name.endsWith('_card') && i.data.price > 0 && i.data.price < 2000000)
+                let cards = items.filter(i => i.item_name.endsWith('card'))
+                .map(i => {
+                    if(i.data.price == 0) {
+                        i.data.price = i.data.last_known_price;
+                    }
+
+                    return i;
+                })
+                .filter(i => (i.data.price > 0 && i.data.price < 2000000))
                 .sort((a, b) => {
                     if (a.data.price < b.data.price)
                     return -1;
@@ -187,6 +195,7 @@ module.exports = {
                     if(cardType == 'grey') return /Common.*Card/.test(i.item_type);
                     if(cardType == 'green') return /Uncommon.*Card/.test(i.item_type);
                     if(cardType == 'blue') return /Rare.*Card/.test(i.item_type);
+                    return true;
                 })
                 .map(i => i.display_name + '(' + i.item_type + '):' + i.data.price.toLocaleString())
                 .join('\n')
