@@ -4,5 +4,10 @@ module.exports = {
     ),
     createImageMessage: (originalContentUrl, previewImageUrl) => (
         { type: 'image', originalContentUrl, previewImageUrl}
-    )
+    ),
+    createMultipleImagesMessage: imageUrls => {
+        return imageUrls.map(url => {
+            return { type: 'image', url: url};
+        });
+    }
 }

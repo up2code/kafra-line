@@ -48,6 +48,10 @@ module.exports = {
                 return callback(lineMessage.createImageMessage(action.value, action.value));
             }
 
+            if(action.type == 'image_list') {
+                return callback(lineMessage.createMultipleImagesMessage(action.value));
+            }
+
             if(action.type == 'url') {
 
                 let replyMsg = (action.description) ? action.description + '\n' + action.value : action.value;
