@@ -50,7 +50,9 @@ module.exports = {
 
             if(action.type == 'image_list') {
                 action.value.forEach(v => {
-                    callback(lineMessage.createImageMessage(v, v));
+                    setTimeout(() => {
+                        callback(lineMessage.createImageMessage(v, v));
+                    }, 2000);
                 });
                 return;
             }
