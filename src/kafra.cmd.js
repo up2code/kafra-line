@@ -49,7 +49,10 @@ module.exports = {
             }
 
             if(action.type == 'image_list') {
-                return callback(lineMessage.createMultipleImagesMessage(action.value));
+                action.value.forEach(v => {
+                    callback(lineMessage.createImageMessage(v, v));
+                });
+                return;
             }
 
             if(action.type == 'url') {
