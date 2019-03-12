@@ -68,7 +68,10 @@ module.exports = (event, callback) => {
             if(remainText == 'trend' || remainText == 'trending') {
                 poporing.getTrendingList(priceListResponse);
             } else if(remainText == 'cardprices') {
-                poporing.listCardSortByPriceAsc(lineMessage.createTextMessage);
+                poporing.listCardSortByPriceAsc(list => {
+                    console.log(list);
+                    callback(lineMessage.createTextMessage(list))
+                });
             } else {
                 poporing.getLatestPrices(remainText, priceListResponse);
             }
