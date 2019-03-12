@@ -67,6 +67,8 @@ module.exports = (event, callback) => {
         case cmdTypeConst.poporing:
             if(remainText == 'trend' || remainText == 'trending') {
                 poporing.getTrendingList(priceListResponse);
+            } else if(remainText == 'cardprices') {
+                poporing.listCardSortByPriceAsc(lineMessage.createTextMessage);
             } else {
                 poporing.getLatestPrices(remainText, priceListResponse);
             }

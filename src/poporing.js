@@ -4,7 +4,8 @@ const cache = require('./cache');
 
 const cacheKey = {
     itemList: 'item_list',
-    itemName: 'item_name'
+    itemName: 'item_name',
+    allLatestPrices: 'all_latest_prices'
 }
 
 const getItemList = callback => {
@@ -48,6 +49,34 @@ const getLatestPrices = (itemNames, callback) => {
     })
     .then(response => response.data)
     .then(response => callback(response.data));
+}
+
+const getAllLatestPrices = callback => {
+    let url = poporingConfig.api + "/get_all_latest_prices";
+    console.log('GET ' + url);
+
+    cache.get(cacheKey.allLatestPrices, (err, item_list) => {
+
+        if(err) {
+            console.log(err);
+            return;
+        }
+
+        if(item_list) {
+            console.log('Return cache ' + cacheKey.allLatestPrices)
+            return callback(item_list);
+        }
+
+        console.log('GET ' + url);
+
+        return axios.get(url, { headers: poporingConfig.headers })
+        .then(response => response.data)
+        .then(response => {
+            cache.set(cacheKey.allLatestPrices, response.data);
+            callback(response.data);
+        });
+
+    });
 }
 
 const getTrendingList = callback => {
@@ -124,5 +153,41 @@ module.exports = {
 
             
         });
+    },
+    listCardSortByPriceAsc: callback => {
+
+        getItemList(itemList => {
+            
+            getAllLatestPrices(items => {
+                let cards = items.filter(i => i.item_name.endsWith('_card') && i.data.price > 0 && i.data.price < 2000000)
+                .sort((a, b) => {
+                    if (a.data.price < b.data.price)
+                    return -1;
+                    if (a.data.price > b.data.price)
+                        return 1;
+                    return 0;
+                })
+                .map(i => {
+                    let itemMetaData = itemList.find(il => il.name == i.item_name);
+
+                    if(itemMetaData) {
+                        i.item_type = itemMetaData.item_type;
+                        i.image_url = itemMetaData.image_url;
+                        i.display_name = itemMetaData.display_name;
+                    } else {
+                        i.item_type = "Unknown";
+                        i.display_name = i.name;
+                    }
+
+                    return i;
+                })
+                .map(i => i.display_name + ' (' + i.item_type + ') : ' + i.data.price.toLocaleString()+ 'z')
+                .join('\n');
+
+                callback(cards);
+            });
+
+        });
+        
     }
 }
