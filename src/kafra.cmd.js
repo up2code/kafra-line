@@ -49,12 +49,7 @@ module.exports = {
             }
 
             if(action.type == 'image_list') {
-                action.value.forEach(v => {
-                    setTimeout(() => {
-                        callback(lineMessage.createImageMessage(v, v));
-                    }, 2000);
-                });
-                return;
+                return callback(lineMessage.createMultipleImagesMessage(action.value));
             }
 
             if(action.type == 'url') {

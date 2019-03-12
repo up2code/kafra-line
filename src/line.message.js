@@ -7,7 +7,7 @@ module.exports = {
     ),
     createMultipleImagesMessage: imageUrls => {
         return imageUrls.map(url => {
-            return { type: 'image', url: url};
+            return { type: 'image', originalContentUrl: url, previewImageUrl: url };
         });
     }
 }
