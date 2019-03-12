@@ -67,8 +67,18 @@ module.exports = (event, callback) => {
         case cmdTypeConst.poporing:
             if(remainText == 'trend' || remainText == 'trending') {
                 poporing.getTrendingList(priceListResponse);
-            } else if(remainText == 'cardprices') {
-                poporing.listCardSortByPriceAsc(list => {
+            } else if(remainText == 'greycards') {
+                poporing.listCardSortByPriceAsc('grey', list => {
+                    console.log(list);
+                    callback(lineMessage.createTextMessage(list))
+                });
+            } else if(remainText == 'greencards') {
+                poporing.listCardSortByPriceAsc('green', list => {
+                    console.log(list);
+                    callback(lineMessage.createTextMessage(list))
+                });
+            } else if(remainText == 'bluecards') {
+                poporing.listCardSortByPriceAsc('blue', list => {
                     console.log(list);
                     callback(lineMessage.createTextMessage(list))
                 });

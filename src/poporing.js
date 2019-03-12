@@ -154,7 +154,9 @@ module.exports = {
             
         });
     },
-    listCardSortByPriceAsc: callback => {
+    listCardSortByPriceAsc: (cardType, callback) => {
+
+        if(!cardType) return;
 
         getItemList(itemList => {
             
@@ -181,8 +183,14 @@ module.exports = {
 
                     return i;
                 })
-                .map(i => i.display_name + ' (' + i.item_type + ') : ' + i.data.price.toLocaleString()+ 'z')
-                .join('\n');
+                .filter(i => {
+                    if(cardType == 'grey') return /Common.*Card/.test(i.item_type);
+                    if(cardType == 'green') return /Uncommon.*Card/.test(i.item_type);
+                    if(cardType == 'blue') return /Rare.*Card/.test(i.item_type);
+                })
+                .map(i => i.display_name + '(' + i.item_type + '):' + i.data.price.toLocaleString())
+                .join('\n')
+                .substring(0, 2000);
 
                 callback(cards);
             });
