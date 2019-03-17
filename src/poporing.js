@@ -198,6 +198,7 @@ module.exports = {
                     return true;
                 })
                 .map(i => i.display_name + '(' + i.item_type + '):' + i.data.price.toLocaleString())
+                .filter((v,i) => i <= 10)
                 .join('\n')
                 .substring(0, 2000);
 
