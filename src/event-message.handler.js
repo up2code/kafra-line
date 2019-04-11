@@ -24,7 +24,6 @@ const getMessageCmdType = text => {
     if(text.startsWith('!')) return cmdTypeConst.command;
     if(text.startsWith('$$')) return cmdTypeConst.romexchange;
     if(text.startsWith('$')) return cmdTypeConst.poporing;
-    if(text.startsWith('ไขกาชา')) return cmdTypeConst.gacha;
     return cmdTypeConst.chat;
 }
 
@@ -75,8 +74,6 @@ module.exports = event => {
                 default:
                 return poporingRepo.getLatestPrices(remainText).then(priceListResponse);
             }
-        case cmdTypeConst.gacha:
-            return gacha.pull();
         case cmdTypeConst.chat:
             return chat(text);
     }

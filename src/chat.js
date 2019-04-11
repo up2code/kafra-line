@@ -3,6 +3,20 @@ const lineMessage = require('./line.message');
 const Chance = require('chance')
 const chance = new Chance();
 
+const gachaAnswer = answers => {
+    
+    let totalChance = answers.reduce((total, answer) => total + answer.chance, 0);
+    let dice = chance.floating({min: 0, max: totalChance})
+    let rateTotal = 0;
+    for(var i=0;i<answers.length;i++) {
+        rateTotal += answers[i].chance;
+        answers[i].rate = rateTotal;
+    }
+    
+    return answers.sort(function(a,b){ return a.rate - b.rate})
+                    .find(function(s){ return dice<=s.rate });
+}
+
 module.exports = text => {
     return firebase.getAllChat()
     .then(answers => {
@@ -12,6 +26,10 @@ module.exports = text => {
 
         if(ans.chance) {
             return (chance.bool({likelihood: ans.chance}))? chance.pickone(ans.answers) : null;
+        }
+
+        if(ans.type && ans.type == 'gacha') {
+            return gachaAnswer(ans.answers);
         }
 
         return chance.pickone(ans.answers);
