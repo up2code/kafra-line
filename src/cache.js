@@ -2,9 +2,11 @@ const NodeCache = require( "node-cache" );
 const myCache = new NodeCache({ stdTTL: 100, checkperiod: 120 });
 
 module.exports = {
-    get: (key, callback) => {
+    get: key => {
         console.log('Try get ' + key + ' from cache');
-        return myCache.get(key, callback);
+        return new Promise(resolve => {
+            myCache.get(key, resolve);
+        });
     },
     set: (key, value) => {
         console.log('Try set ' + key + ' to cache');
