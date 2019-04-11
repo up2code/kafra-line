@@ -1,13 +1,9 @@
 const lineMessage = require('./line.message');
-const fs = require('fs');
-// const cmdList = require('./commands.json');
 const botMessage = require('./message.default');
 const format = require('string-format');
 const firebase = require('./firebase');
 const Chance = require('chance')
 const chance = new Chance();
-
-const readReferenceFileContent = (fileName, callback) => fs.readFile('./ref/' + fileName, 'utf8', callback);
 
 const compare = (a,b) => {
     if (a.name < b.name)
@@ -28,48 +24,32 @@ const generateHelp = cmdList => {
 }
 
 module.exports = {
-    run: (cmd, callback) => {
+    run: cmd => {
         
         if(cmd == 'help') {
-            return firebase.getAllCommand().then(cmdList => {
-                return callback(lineMessage.createTextMessage(generateHelp(cmdList)));
-            });
+            return firebase.getAllCommand().then(cmdList => lineMessage.createTextMessage(generateHelp(cmdList)));
         }
 
-        firebase.getCommand(cmd.toLowerCase())
+        return firebase.getCommand(cmd.toLowerCase())
         .then(action => {
-            //const action = cmdList.find(c => c.name == cmd.toLowerCase());
 
             if(!action) {
-                return callback(lineMessage.createTextMessage(format(chance.pickone(botMessage.command_not_found), cmd)));
+                return lineMessage.createTextMessage(format(chance.pickone(botMessage.command_not_found), cmd));
             }
             
             if(action.type == 'image') {
-                return callback(lineMessage.createImageMessage(action.value, action.value));
+                return lineMessage.createImageMessage(action.value, action.value);
             }
 
             if(action.type == 'image_list') {
-                return callback(lineMessage.createMultipleImagesMessage(action.value));
+                return lineMessage.createMultipleImagesMessage(action.value);
             }
 
             if(action.type == 'url') {
 
                 let replyMsg = (action.description) ? action.description + '\n' + action.value : action.value;
 
-                return callback(lineMessage.createTextMessage(replyMsg));
-            }
-
-            if(action.type == 'file') {
-
-                readReferenceFileContent(action.value, (err, content) => {
-
-                    if(!err) {
-                        callback(lineMessage.createTextMessage(content))
-                    } else {
-                        console.log(err)
-                    }
-                    
-                });
+                return lineMessage.createTextMessage(replyMsg);
             }
         });
 

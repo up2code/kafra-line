@@ -14,10 +14,10 @@ app.post('/callback', lineConfig.middleware, (req, res) => {
       return;
     }
 
-      return eventMessageHandler(event, message => {
-          console.log('Reply :' + JSON.stringify(message));
-          lineConfig.client.replyMessage(event.replyToken, message);
-      })
+    return eventMessageHandler(event).then(message => {
+      console.log('Reply :' + JSON.stringify(message));
+      lineConfig.client.replyMessage(event.replyToken, message);
+    });
   });
   res.sendStatus(200)
 });
