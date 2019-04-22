@@ -1,14 +1,14 @@
 const admin = require('firebase-admin');
 const axios = require('axios');
 // For local development
-var serviceAccount = require('./../serviceAccountKey.json');
+// var serviceAccount = require('./../serviceAccountKey.json');
 
 // For host environment variable
-// const keysEnvVar = process.env['FIREBASE_ACCOUNT'];
-// if (!keysEnvVar) {
-//   throw new Error('The $FIREBASE_ACCOUNT environment variable was not found!');
-// }
-// var serviceAccount = JSON.parse(keysEnvVar);
+const keysEnvVar = process.env['FIREBASE_ACCOUNT'];
+if (!keysEnvVar) {
+  throw new Error('The $FIREBASE_ACCOUNT environment variable was not found!');
+}
+var serviceAccount = JSON.parse(keysEnvVar);
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
