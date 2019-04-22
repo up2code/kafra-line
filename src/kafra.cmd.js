@@ -36,6 +36,10 @@ module.exports = {
             if(!action) {
                 return lineMessage.createTextMessage(format(chance.pickone(botMessage.command_not_found), cmd));
             }
+
+            if(!action.type || action.type == 'text') {
+                return lineMessage.createTextMessage(action.value);
+            }
             
             if(action.type == 'image') {
                 return lineMessage.createImageMessage(action.value, action.value);
