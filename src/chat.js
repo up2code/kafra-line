@@ -5,13 +5,18 @@ const chance = new Chance();
 
 const gachaAnswer = answers => {
     
-    let totalChance = answers.reduce((total, answer) => total + answer.chance, 0);
+    console.log(JSON.stringify(answers))
+
+    let totalChance = answers.reduce((total, answer) => total + Number(answer.chance), 0);
     let dice = chance.floating({min: 0, max: totalChance})
     let rateTotal = 0;
     for(var i=0;i<answers.length;i++) {
         rateTotal += answers[i].chance;
         answers[i].rate = rateTotal;
     }
+
+    console.log('total chance : ' + totalChance)
+    console.log('dice : ' + dice)
     
     return answers.sort(function(a,b){ return a.rate - b.rate})
                     .find(function(s){ return dice<=s.rate });
@@ -23,6 +28,8 @@ module.exports = text => {
         let ans = answers.find(ans => RegExp(ans.match,'g').test(text));
 
         if(!ans) return null;
+
+        console.log(ans)
 
         if(ans.chance) {
             return (chance.bool({likelihood: ans.chance}))? chance.pickone(ans.answers) : null;
