@@ -23,7 +23,7 @@ const itemContainName = (item, name) => {
 const searchItemNames = name => {
   return poporing.getItemList()
   .then(data => data.item_list)
-  .then(items => items.filter(i => itemContainName(i, name)))
+  .then(items => items.filter(i => itemContainName(i, name.toLocaleLowerCase())))
 }
 
 const mapItemPriceDataList = items => {
