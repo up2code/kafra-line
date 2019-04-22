@@ -14,10 +14,16 @@ app.post('/callback', lineConfig.middleware, (req, res) => {
       return;
     }
 
+    const sourceId = (event.source.groupId) ?  event.source.groupId : event.source.userId;
+
     return eventMessageHandler(event).then(message => {
       if(message) {
         console.log('Reply :' + JSON.stringify(message));
-        lineConfig.client.replyMessage(event.replyToken, message);
+        lineConfig.client.replyMessage(event.replyToken, message)
+        .catch((err) => {
+            console.error(err);
+            lineConfig.client.pushMessage(sourceId, { type: 'text', text: 'Something wrong inside me....'})
+        });
       }
       
     });
