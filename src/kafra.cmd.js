@@ -4,6 +4,7 @@ const format = require('string-format');
 const firebase = require('./firebase');
 const Chance = require('chance')
 const chance = new Chance();
+const fs = require('fs');
 
 const compare = (a,b) => {
     if (a.name < b.name)
@@ -54,6 +55,44 @@ module.exports = {
                 let replyMsg = (action.description) ? action.description + '\n' + action.value : action.value;
 
                 return lineMessage.createTextMessage(replyMsg);
+            }
+
+            if(action.type == 'file') {
+                
+                let filePath = './ref/' + action.value;
+
+                if(!fs.existsSync(filePath)) {
+                    return firebase.downloadFile(action.value)
+                    .then(() => {
+                            return new Promise(resolve => {
+
+                                fs.readFile('./ref/' + action.value, 'utf8', (err, content) => {
+                                    if(err) {
+                                        console.error(err);
+                                    } else {
+                                        resolve(lineMessage.createTextMessage(content));
+                                    }
+                                });
+
+                            });
+                    });
+                } else {
+                    return new Promise(resolve => {
+
+                        fs.readFile('./ref/' + action.value, 'utf8', (err, content) => {
+                            if(err) {
+                                console.error(err);
+                            } else {
+                                resolve(lineMessage.createTextMessage(content));
+                            }
+                        });
+
+                    });
+                }
+                
+
+                
+                
             }
         });
 

@@ -1,17 +1,18 @@
 const admin = require('firebase-admin');
-
+const axios = require('axios');
 // For local development
-// var serviceAccount = require('./../serviceAccountKey.json');
+var serviceAccount = require('./../serviceAccountKey.json');
 
 // For host environment variable
-const keysEnvVar = process.env['FIREBASE_ACCOUNT'];
-if (!keysEnvVar) {
-  throw new Error('The $FIREBASE_ACCOUNT environment variable was not found!');
-}
-var serviceAccount = JSON.parse(keysEnvVar);
+// const keysEnvVar = process.env['FIREBASE_ACCOUNT'];
+// if (!keysEnvVar) {
+//   throw new Error('The $FIREBASE_ACCOUNT environment variable was not found!');
+// }
+// var serviceAccount = JSON.parse(keysEnvVar);
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
+  credential: admin.credential.cert(serviceAccount),
+  storageBucket: "kafra-line.appspot.com"
 });
 
 var db = admin.firestore();
@@ -79,6 +80,11 @@ module.exports = {
           })
         .catch((err) => {
             console.log('Error getting documents', err);
+        });
+    },
+    downloadFile: filename => {
+        return admin.storage().bucket().file(filename).download({
+            destination: './ref/' + filename
         });
     }
 }
