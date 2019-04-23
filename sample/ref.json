@@ -1,0 +1,23 @@
+{
+  "mvpdrop": {
+    "name": "mvpdrop",
+    "description": "MVP item drop list",
+    "type": "image",
+    "value": "https://cdn.discordapp.com/attachments/536748889781436416/536860034915631114/1548067289129.png"
+  },
+  "et": {
+    "name": "et",
+    "description": "Endless tower website",
+    "type": "url",
+    "value": "https://www.hdgames.net/boss.php"
+  },
+  "petfusion": {
+    "name": "petfusion",
+    "description": "Pet fusion (EP 5.0)",
+    "type": "image_list",
+    "value": [
+      "https://cdn.discordapp.com/attachments/360374838864379915/552005625043877918/unknown.png",
+      "https://cdn.discordapp.com/attachments/360374838864379915/552005826391572509/unknown.png"
+    ]
+  }
+}

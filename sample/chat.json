@@ -1,0 +1,61 @@
+{
+  "test": {
+    "match": "test",
+    "answers": [
+      {
+        "type": "text",
+        "value": "test ja"
+      },
+      {
+        "type": "text",
+        "value": "test ja 2"
+      }
+    ]
+  },
+  "random": {
+    "match": "somerandom",
+    "chance": 20,
+    "answers": [
+      {
+        "type": "text",
+        "value": "f*ck"
+      }
+    ]
+  },
+  "gacha": {
+    "match": "(ไข|ไข่|ขัย|ใข|ขรัย)(กา)(ชา)",
+    "type": "gacha",
+    "answers": [
+      {
+        "type": "text",
+        "chance": 5,
+        "value": "Deamweave Silk (5.00%)"
+      },
+      {
+        "type": "text",
+        "chance": 6,
+        "value": "Crown of Light[1] (6.00%)"
+      },
+      {
+        "type": "text",
+        "chance": 7,
+        "value": "Tears of Heaven (7.00%)"
+      },
+      {
+        "type": "text",
+        "chance": 23,
+        "value": "Moon Ruby (23.00%)"
+      },
+      {
+        "type": "text",
+        "chance": 28,
+        "value": "Windtide Echo (28.00%)"
+      },
+      {
+        "type": "text",
+        "chance": 31,
+        "value": "Lunar Flow (31.00%)"
+      }
+    ]
+  }
+}
