@@ -55,11 +55,11 @@ module.exports = {
             }
 
             if(value) {
-                console.log('Get all command from cache');
+                console.log('Cache [' + key + '] exists. Get all command from cache');
                 return value;
             }
 
-            console.log('Get all command from firebase');
+            console.log('Cache [' + key + '] not found. Get all command from firebase.');
 
             return db.collection('ref').get()
             .then((snapshot) => {
@@ -92,11 +92,11 @@ module.exports = {
             }
 
             if(value) {
-                console.log('Get command ' + name + ' from cache');
+                console.log('Cache [' + key + '] exists. Get command ' + name + ' from cache.');
                 return value;
             }
 
-            console.log('Get command ' + name + ' from firebase');
+            console.log('Cache [' + key + '] not found. Get command ' + name + ' from firebase.');
 
             return db.collection('ref').doc(name).get()
             .then(doc => doc.data())
@@ -121,11 +121,11 @@ module.exports = {
             }
 
             if(value) {
-                console.log('Get all chat from cache');
+                console.log('Cache [' + key + '] exists. Get all chat from cache.');
                 return value;
             }
 
-            console.log('Get all chat from firebase');
+            console.log('Cache [' + key + '] not found. Get all chat from firebase');
 
             return db.collection('chat').get()
             .then((snapshot) => {
