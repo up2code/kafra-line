@@ -101,10 +101,10 @@ module.exports = {
 
             return db.collection('ref').doc(name).get()
             .then(doc => doc.data())
-            .then(doc => {
+            .then(data => {
                 console.log('Save cache [' + key + ']');
-                cache.set(key, doc.data())
-                return doc.data();
+                cache.set(key, data)
+                return data;
             })
             .catch((err) => {
                 console.log('Error getting documents', err);
