@@ -1,5 +1,5 @@
 const poporing = require('./poporing');
-
+const Fuse = require('fuse.js');
 
 const mapLastKnownPrice = i => {
   if(i.data.price == 0) i.data.price = i.data.last_known_price;
@@ -23,7 +23,20 @@ const itemContainName = (item, name) => {
 const searchItemNames = name => {
   return poporing.getItemList()
   .then(data => data.item_list)
-  .then(items => items.filter(i => itemContainName(i, name.toLocaleLowerCase())))
+  .then(items => {
+
+    var options = {
+      threshold: 0.3,
+      distance: 100,
+      maxPatternLength: 32,
+      minMatchCharLength: 1,
+      keys: [ 'name', 'display_name', 'alt_display_name_list']
+    }
+    var result = new Fuse(items, options).search(name);
+
+    return result;
+  })
+  .then(items => items.filter((v,i) => i <= 10));
 }
 
 const mapItemPriceDataList = items => {
