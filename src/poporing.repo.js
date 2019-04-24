@@ -36,7 +36,7 @@ const searchItemNames = name => {
 
     return result;
   })
-  .then(items => items.filter((v,i) => i <= 10));
+  .then(items => items.filter((v,i) => i <= 5));
 }
 
 const mapItemPriceDataList = items => {
