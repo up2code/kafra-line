@@ -54,6 +54,8 @@ const mapItemPriceDataList = items => {
   .then(masterItems => masterItems.filter(mi => itemNames.includes(mi.name)))
   .then(masterItems => masterItems.map(mi => {
     mi.priceData = items.find(i => i.item_name == mi.name).data;
+    mi.priceData.price = (mi.priceData.price == 0 && mi.priceData.last_known_price > 0)? 
+      mi.priceData.last_known_price : mi.priceData.price;
     return mi;
   }))
 }
