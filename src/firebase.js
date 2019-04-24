@@ -48,12 +48,7 @@ module.exports = {
         const key = 'firebase_get_all_command';
 
         return cache.get(key)
-        .then((err, value) => {
-            if(err) {
-                console.log(err)
-                return;
-            }
-
+        .then(value => {
             if(value) {
                 console.log('Cache [' + key + '] exists. Get all command from cache');
                 return value;
@@ -85,13 +80,7 @@ module.exports = {
         const key = 'firebase_get_command_' + name;
 
         return cache.get(key)
-        .then((err, value) => {
-
-            if(err) {
-                console.log(err);
-                return;
-            }
-
+        .then(value => {
             if(value) {
                 console.log('Cache [' + key + '] exists. Get command ' + name + ' from cache.');
                 return value;
@@ -116,11 +105,7 @@ module.exports = {
         const key = 'firebase_get_all_chat';
 
         return cache.get(key)
-        .then((err, value) => {
-            if(err) {
-                console.log(err)
-                return;
-            }
+        .then(value => {
 
             if(value) {
                 console.log('Cache [' + key + '] exists. Get all chat from cache.');

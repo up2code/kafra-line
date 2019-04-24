@@ -6,7 +6,11 @@ module.exports = {
         console.log('Try get ' + key + ' from cache');
         return new Promise((resolve, reject) => {
             myCache.get(key, (err, value) => {
-                resolve(err,value);
+                if(err) { 
+                    reject(err);
+                } else {
+                    resolve(value);
+                }
             });
         });
     },

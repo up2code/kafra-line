@@ -9,12 +9,7 @@ module.exports = {
         console.log('GET ' + url);
 
         return cache.get(key)
-        .then((err, value) => {
-            if(err) {
-                console.log(err)
-                return;
-            }
-
+        .then(value => {
             if(value) {
                 return value;
             }
@@ -33,12 +28,7 @@ module.exports = {
         console.log('GET ' + url);
 
         return cache.get(key)
-        .then((err, value) => {
-
-            if(err) {
-                console.log(err)
-                return;
-            }
+        .then(value => {
 
             if(value) {
                 return value;
