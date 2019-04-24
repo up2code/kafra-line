@@ -1,5 +1,6 @@
 const admin = require('firebase-admin');
 const axios = require('axios');
+const cache = require('./cache');
 // For local development
 // var serviceAccount = require('./../serviceAccountKey.json');
 
@@ -44,42 +45,103 @@ module.exports = {
         });
     },
     getAllCommand: () => {
-        return db.collection('ref').get()
-        .then((snapshot) => {
+        const key = 'firebase_get_all_command';
 
-            let cmdList = [];
+        return cache.get(key)
+        .then((err, value) => {
+            if(err) {
+                console.log(err)
+                return;
+            }
 
-            snapshot.forEach((doc) => {
-                cmdList.push(doc.data());
+            if(value) {
+                console.log('Get all command from cache');
+                return value;
+            }
+
+            console.log('Get all command from firebase');
+
+            return db.collection('ref').get()
+            .then((snapshot) => {
+    
+                let cmdList = [];
+    
+                snapshot.forEach((doc) => {
+                    cmdList.push(doc.data());
+                });
+
+                cache.set(key, cmdList)
+    
+                return cmdList;
+              })
+            .catch((err) => {
+                console.log('Error getting documents', err);
             });
-
-            return cmdList;
-          })
-        .catch((err) => {
-            console.log('Error getting documents', err);
         });
     },
     getCommand: name => {
-        return db.collection('ref').doc(name).get()
-        .then(doc => doc.data())
-        .catch((err) => {
-            console.log('Error getting documents', err);
+
+        const key = 'firebase_get_command_' + name;
+
+        return cache.get(key)
+        .then((err, value) => {
+
+            if(err) {
+                console.log(err);
+                return;
+            }
+
+            if(value) {
+                console.log('Get command ' + name + ' from cache');
+                return value;
+            }
+
+            console.log('Get command ' + name + ' from firebase');
+
+            return db.collection('ref').doc(name).get()
+            .then(doc => doc.data())
+            .then(doc => {
+                cache.set(key, doc.data())
+                return doc.data();
+            })
+            .catch((err) => {
+                console.log('Error getting documents', err);
+            });
         });
     },
     getAllChat: () => {
-        return db.collection('chat').get()
-        .then((snapshot) => {
 
-            let list = [];
+        const key = 'firebase_get_all_chat';
 
-            snapshot.forEach((doc) => {
-                list.push(doc.data());
+        return cache.get(key)
+        .then((err, value) => {
+            if(err) {
+                console.log(err)
+                return;
+            }
+
+            if(value) {
+                console.log('Get all chat from cache');
+                return value;
+            }
+
+            console.log('Get all chat from firebase');
+
+            return db.collection('chat').get()
+            .then((snapshot) => {
+                let list = [];
+    
+                snapshot.forEach((doc) => {
+                    list.push(doc.data());
+                });
+
+                cache.set(key, list)
+    
+                return list;
+              })
+            .catch((err) => {
+                console.log('Error getting documents', err);
             });
-
-            return list;
-          })
-        .catch((err) => {
-            console.log('Error getting documents', err);
         });
     },
     downloadFile: filename => {
