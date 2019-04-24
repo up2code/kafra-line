@@ -70,6 +70,7 @@ module.exports = {
                     cmdList.push(doc.data());
                 });
 
+                console.log('Save cache [' + key + ']');
                 cache.set(key, cmdList)
     
                 return cmdList;
@@ -101,6 +102,7 @@ module.exports = {
             return db.collection('ref').doc(name).get()
             .then(doc => doc.data())
             .then(doc => {
+                console.log('Save cache [' + key + ']');
                 cache.set(key, doc.data())
                 return doc.data();
             })
@@ -135,6 +137,7 @@ module.exports = {
                     list.push(doc.data());
                 });
 
+                console.log('Save cache [' + key + ']');
                 cache.set(key, list)
     
                 return list;
