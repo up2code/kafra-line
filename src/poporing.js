@@ -54,12 +54,19 @@ module.exports = {
         return axios(conf)
         .then(response => response.data);
     },
-    getTrendingList: () => {
+    getTrendingList: day => {
         let url = poporingConfig.api + "/get_trending_list";
         console.log('GET ' + url);
         
         return axios.get(url, { headers: poporingConfig.headers })
             .then(response => response.data)
-            .then(response => response.data.item_list);
+            .then(response => {
+                switch(day) {
+                    case 1: return response.data.item_list;
+                    case 3: return response.data.item_list_full_1day;
+                    case 7: return response.data.item_list_full_3day;
+                    default: return response.data.item_list_full_7day;
+                }
+            });
     }
 }

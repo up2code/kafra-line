@@ -66,10 +66,12 @@ const getLatestPrices = query => {
     .then(mapItemPriceDataList)
 }
 
-const getTrendingList = () => {
-  return poporing.getTrendingList().
+const getTrendingList = day => {
+  return poporing.getTrendingList(day).
   then(items => items.map(i => i.name))
   .then(poporing.getLatestPrices)
+  .then(response => response.data)
+  .then(mapItemPriceDataList);
 }
 
 const getCards = cardType => {

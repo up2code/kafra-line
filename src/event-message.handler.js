@@ -65,6 +65,13 @@ module.exports = event => {
                 case 'trend':
                 case 'trending':
                     return poporingRepo.getTrendingList().then(priceListResponse);
+                case 'trend24h':
+                case 'trend1d':
+                    return poporingRepo.getTrendingList(1).then(priceListResponse);
+                case 'trend3d':
+                    return poporingRepo.getTrendingList(3).then(priceListResponse);
+                case 'trend7d':
+                    return poporingRepo.getTrendingList(7).then(priceListResponse);
                 case 'greycards':
                     return poporingRepo.getCards('grey').then(lineMessage.createTextMessage);
                 case 'greencards':
@@ -72,7 +79,7 @@ module.exports = event => {
                 case 'bluecards':
                     return poporingRepo.getCards('blue').then(lineMessage.createTextMessage);
                 default:
-                return poporingRepo.getLatestPrices(remainText).then(priceListResponse);
+                    return poporingRepo.getLatestPrices(remainText).then(priceListResponse);
             }
         case cmdTypeConst.chat:
             return chat(text);
