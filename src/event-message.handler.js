@@ -74,7 +74,7 @@ module.exports = event => {
                 default:
                 return poporingRepo.getLatestPrices(remainText).then(priceListResponse);
             }
-        case cmdTypeConst.chat:
-            return chat(text);
+        // case cmdTypeConst.chat:
+        //     return chat(text);
     }
 }
