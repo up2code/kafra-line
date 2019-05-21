@@ -24,59 +24,34 @@ const generateHelp = cmdList => {
     return content;
 }
 
-module.exports = {
-    run: cmd => {
+const validateAndRunAction = action => {
+
+    if(!action.type || action.type == 'text') {
+        return lineMessage.createTextMessage(action.value);
+    }
+    
+    if(action.type == 'image') {
+        return lineMessage.createImageMessage(action.value, action.value);
+    }
+
+    if(action.type == 'image_list') {
+        return lineMessage.createMultipleImagesMessage(action.value);
+    }
+
+    if(action.type == 'url') {
+
+        let replyMsg = (action.description) ? action.description + '\n' + action.value : action.value;
+
+        return lineMessage.createTextMessage(replyMsg);
+    }
+
+    if(action.type == 'file') {
         
-        if(cmd == 'help') {
-            return firebase.getAllCommand().then(cmdList => lineMessage.createTextMessage(generateHelp(cmdList)));
-        }
+        let filePath = './ref/' + action.value;
 
-        return firebase.getCommand(cmd.toLowerCase())
-        .then(action => {
-
-            if(!action) {
-                return lineMessage.createTextMessage(format(chance.pickone(botMessage.command_not_found), cmd));
-            }
-
-            if(!action.type || action.type == 'text') {
-                return lineMessage.createTextMessage(action.value);
-            }
-            
-            if(action.type == 'image') {
-                return lineMessage.createImageMessage(action.value, action.value);
-            }
-
-            if(action.type == 'image_list') {
-                return lineMessage.createMultipleImagesMessage(action.value);
-            }
-
-            if(action.type == 'url') {
-
-                let replyMsg = (action.description) ? action.description + '\n' + action.value : action.value;
-
-                return lineMessage.createTextMessage(replyMsg);
-            }
-
-            if(action.type == 'file') {
-                
-                let filePath = './ref/' + action.value;
-
-                if(!fs.existsSync(filePath)) {
-                    return firebase.downloadFile(action.value)
-                    .then(() => {
-                            return new Promise(resolve => {
-
-                                fs.readFile('./ref/' + action.value, 'utf8', (err, content) => {
-                                    if(err) {
-                                        console.error(err);
-                                    } else {
-                                        resolve(lineMessage.createTextMessage(content));
-                                    }
-                                });
-
-                            });
-                    });
-                } else {
+        if(!fs.existsSync(filePath)) {
+            return firebase.downloadFile(action.value)
+            .then(() => {
                     return new Promise(resolve => {
 
                         fs.readFile('./ref/' + action.value, 'utf8', (err, content) => {
@@ -88,14 +63,37 @@ module.exports = {
                         });
 
                     });
-                }
-                
+            });
+        } else {
+            return new Promise(resolve => {
 
-                
-                
+                fs.readFile('./ref/' + action.value, 'utf8', (err, content) => {
+                    if(err) {
+                        console.error(err);
+                    } else {
+                        resolve(lineMessage.createTextMessage(content));
+                    }
+                });
+
+            });
+        }
+    }
+}
+
+module.exports = {
+    run: cmd => {
+        if(cmd == 'help') {
+            return firebase.getAllCommand().then(cmdList => lineMessage.createTextMessage(generateHelp(cmdList)));
+        }
+
+        return firebase.getAllCommand().then(cmdList => {
+            var action = cmdList.find(act => act.name === cmd || (act.alias && act.alias.indexOf(cmd) != -1));
+
+            if(!action) {
+                return lineMessage.createTextMessage(format(chance.pickone(botMessage.command_not_found), cmd));
             }
-        });
 
-        
+            return validateAndRunAction(action);
+        });
     }
 }
