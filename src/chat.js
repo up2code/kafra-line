@@ -8,7 +8,7 @@ const gachaAnswer = answers => {
     console.log(JSON.stringify(answers))
 
     let totalChance = answers.reduce((total, answer) => total + Number(answer.chance), 0);
-    let dice = chance.floating({min: 0, max: totalChance})
+    let dice = chance.integer({min: 1, max: totalChance})
     let rateTotal = 0;
     for(var i=0;i<answers.length;i++) {
         rateTotal += answers[i].chance;
