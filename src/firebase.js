@@ -1,6 +1,7 @@
 const admin = require('firebase-admin');
 const axios = require('axios');
 const cache = require('./cache');
+const moment = require('moment');
 // For local development
 // var serviceAccount = require('./../serviceAccountKey.json');
 
@@ -17,6 +18,25 @@ admin.initializeApp({
 });
 
 var db = admin.firestore();
+
+const mapEvent = event => {
+  const mmStartDate = moment(event.start.toDate());
+  const mmEndDate = moment(event.end.toDate());
+  const mmToday = moment();
+  const isRunning = mmToday.isBetween(mmStartDate, mmEndDate);
+  return {
+    name: event.name,
+    description: event.description,
+    startTime: mmStartDate.unix(),
+    start: mmStartDate.format("LL"),
+    end: mmEndDate.format("LL"),
+    isEnded: mmToday.isAfter(mmEndDate),
+    isRunning: mmToday.isBetween(mmStartDate, mmEndDate),
+    fromNow: (isRunning)? "Happening now" : moment(event.start.toDate()).fromNow(),
+    detailUrl: event.detailUrl,
+    thumbUrl: (event.thumbUrl) ? event.thumbUrl : 'https://via.placeholder.com/800x600?text=EVENT'
+  }
+}
 
 module.exports = {
     addRef: (name, value, type, description) => {
@@ -54,7 +74,7 @@ module.exports = {
                 return value;
             }
 
-            console.log('Cache [' + key + '] not found. Get all command from firebase.');
+            console.log('Cache [' + key + '] not found. Get all command from firebase...');
 
             return db.collection('ref').get()
             .then((snapshot) => {
@@ -69,6 +89,44 @@ module.exports = {
                 cache.set(key, cmdList)
     
                 return cmdList;
+              })
+            .catch((err) => {
+                console.log('Error getting documents', err);
+            });
+        });
+    },
+    getAllEvents: () => {
+
+        const key = 'firebase_get_all_events';
+
+        return cache.get(key)
+        .then(value => {
+            if(value) {
+                console.log('Cache [' + key + '] exists. Get all events from cache.');
+                return value;
+            }
+
+            console.log('Cache [' + key + '] not found. Get all events from firebase.');
+
+            return db.collection('events').get()
+            .then((snapshot) => {
+    
+                let events = [];
+
+                snapshot.forEach((doc) => {
+                    events.push(mapEvent(doc.data()));
+                });
+
+                events = events.sort((a, b) => {
+                    if(a.startTime < b.startTime) return -1;
+                    if(a.startTime === b.startTime) return 0;
+                    if(a.startTime > b.startTime) return 1;
+                });
+
+                console.log('Save cache [' + key + ']');
+                cache.set(key, events)
+    
+                return events;
               })
             .catch((err) => {
                 console.log('Error getting documents', err);

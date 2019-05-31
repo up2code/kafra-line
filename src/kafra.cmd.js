@@ -5,6 +5,7 @@ const firebase = require('./firebase');
 const Chance = require('chance')
 const chance = new Chance();
 const fs = require('fs');
+const customCmd = require('./custom.cmd');
 
 const compare = (a,b) => {
     if (a.name < b.name)
@@ -28,6 +29,10 @@ const validateAndRunAction = action => {
 
     if(!action.type || action.type == 'text') {
         return lineMessage.createTextMessage(action.value);
+    }
+
+    if(action.type == 'custom') {
+        return customCmd[action.value]();
     }
     
     if(action.type == 'image') {
