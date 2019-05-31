@@ -72,12 +72,6 @@ module.exports = event => {
                     return poporingRepo.getTrendingList(3).then(priceListResponse);
                 case 'trend7d':
                     return poporingRepo.getTrendingList(7).then(priceListResponse);
-                case 'greycards':
-                    return poporingRepo.getCards('grey').then(lineMessage.createTextMessage);
-                case 'greencards':
-                    return poporingRepo.getCards('greencards').then(lineMessage.createTextMessage);
-                case 'bluecards':
-                    return poporingRepo.getCards('blue').then(lineMessage.createTextMessage);
                 default:
                     return poporingRepo.getLatestPrices(remainText).then(priceListResponse);
             }
