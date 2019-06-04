@@ -2,6 +2,7 @@ const admin = require('firebase-admin');
 const axios = require('axios');
 const cache = require('./cache');
 const moment = require('moment');
+const romEvents = require('./rom.events');
 // For local development
 // var serviceAccount = require('./../serviceAccountKey.json');
 
@@ -18,25 +19,6 @@ admin.initializeApp({
 });
 
 var db = admin.firestore();
-
-const mapEvent = event => {
-  const mmStartDate = moment(event.start.toDate());
-  const mmEndDate = moment(event.end.toDate());
-  const mmToday = moment();
-  const isRunning = mmToday.isBetween(mmStartDate, mmEndDate);
-  return {
-    name: event.name,
-    description: event.description,
-    startTime: mmStartDate.unix(),
-    start: mmStartDate.format("LL"),
-    end: mmEndDate.format("LL"),
-    isEnded: mmToday.isAfter(mmEndDate),
-    isRunning: mmToday.isBetween(mmStartDate, mmEndDate),
-    fromNow: (isRunning)? "Happening now" : moment(event.start.toDate()).fromNow(),
-    detailUrl: event.detailUrl,
-    thumbUrl: (event.thumbUrl) ? event.thumbUrl : 'https://via.placeholder.com/800x600?text=EVENT'
-  }
-}
 
 module.exports = {
     addRef: (name, value, type, description) => {
@@ -114,7 +96,12 @@ module.exports = {
                 let events = [];
 
                 snapshot.forEach((doc) => {
-                    events.push(mapEvent(doc.data()));
+                    let event = doc.data();
+                    if(event.weekly) {
+                        events.push(romEvents.mapWeeklyEvent(event));
+                    } else {
+                        events.push(romEvents.mapEvent(event));
+                    }
                 });
 
                 events = events.sort((a, b) => {
