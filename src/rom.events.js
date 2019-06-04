@@ -90,7 +90,6 @@ module.exports = {
       resultEvent.startTime = nextEventStart.unix();
       resultEvent.start = nextEventStart.format('dddd, HH:mm');
       resultEvent.end = nextEventEnd.format('dddd, HH:mm');
-      resultEvent.fromNow = nextEventStart.fromNow();
     }
   
     return resultEvent;
