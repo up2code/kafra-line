@@ -34,11 +34,11 @@ module.exports = {
       weekly: true,
       description: weeklyEvent.description,
       detailUrl: weeklyEvent.detailUrl,
-      thumbUrl: (weeklyEvent.thumbUrl) ? weeklyEvent.thumbUrl : 'https://via.placeholder.com/800x600?text=EVENT'
+      thumbUrl: (weeklyEvent.thumbUrl) ? weeklyEvent.thumbUrl : `https://via.placeholder.com/800x600?text=EVENT`
     }
 
     const now = moment();
-    const dayOfWeek = now.day();
+    const todayOfWeek = now.day();
   
     const splitedStartTime = startTime.split(':');
     const startHour = splitedStartTime[0];
@@ -49,7 +49,7 @@ module.exports = {
     const endMinute = splitedEndTime[1];
   
   
-    if(dayOfWeek === day) {
+    if(todayOfWeek === day) {
       let todayEventStart = moment();
       todayEventStart.hour(startHour);
       todayEventStart.minute(startMinute);
@@ -76,7 +76,11 @@ module.exports = {
 
     } else {
       let nextEventStart = moment();
-      nextEventStart.add(1, 'w');
+
+      if(todayOfWeek > day) {
+        nextEventStart.add(1, 'w');
+      }
+      
       nextEventStart.day(day)
       nextEventStart.hour(startHour);
       nextEventStart.minute(startMinute);
@@ -90,6 +94,7 @@ module.exports = {
       resultEvent.startTime = nextEventStart.unix();
       resultEvent.start = nextEventStart.format('dddd, HH:mm');
       resultEvent.end = nextEventEnd.format('dddd, HH:mm');
+      resultEvent.fromNow = nextEventStart.fromNow();
     }
   
     return resultEvent;
