@@ -1,17 +1,23 @@
 module.exports = generate = (event) => {
+
+    const hero = {
+        "type":"image",
+        "url": event.thumbUrl,
+        "size":"full",
+        "aspectRatio":"25:10",
+        "aspectMode":"cover"
+    };
+
+    if(event.detailUrl) {
+      hero.action = {
+        "type":"uri",
+        "uri": event.detailUrl
+      }
+    }
+
     return {
       "type":"bubble",
-      "hero":{
-         "type":"image",
-         "url": event.thumbUrl,
-         "size":"full",
-         "aspectRatio":"25:10",
-         "aspectMode":"cover",
-         "action":{
-            "type":"uri",
-            "uri": event.detailUrl
-         }
-      },
+      "hero": hero,
       "body":{
          "type":"box",
          "layout":"vertical",
