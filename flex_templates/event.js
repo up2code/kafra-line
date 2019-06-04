@@ -15,7 +15,7 @@ module.exports = generate = (event) => {
       }
     }
 
-    return {
+    const result = {
       "type":"bubble",
       "hero": hero,
       "body":{
@@ -88,17 +88,6 @@ module.exports = generate = (event) => {
                        ]
                      }
                    ]
-                 },
-                 {
-                   "type": "box",
-                   "layout": "horizontal",
-                   "contents": [
-                     {
-                       "type": "text",
-                       "color": "#aaaaaa",
-                       "text": event.fromNow
-                     }
-                   ]
                  }
                ]
              },
@@ -112,4 +101,22 @@ module.exports = generate = (event) => {
          ]
       }
    }
+
+   if(event.fromNow) {
+    result.body.contents[1].contents.push(
+      {
+        "type": "box",
+        "layout": "horizontal",
+        "contents": [
+          {
+            "type": "text",
+            "color": "#aaaaaa",
+            "text": event.fromNow
+          }
+        ]
+      }
+    );
+   }
+
+   return result;
 }
