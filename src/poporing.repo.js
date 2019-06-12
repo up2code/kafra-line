@@ -60,6 +60,20 @@ const mapItemPriceDataList = items => {
   }))
 }
 
+const groupTrendingItems = data => {
+
+  const groups = ['item_list', 'item_list_full_1day', 'item_list_full_3day', 'item_list_full_7day'];
+
+  groups.forEach(group => {
+    data[group] = data[group].map(i => {
+      i.group = group;
+      return i;
+    });
+  });
+
+  return data;
+}
+
 const getLatestPrices = query => {
     return searchItemNames(query)
     .then(result => result.map(i => i.name))
@@ -69,11 +83,60 @@ const getLatestPrices = query => {
 }
 
 const getTrendingList = day => {
-  return poporing.getTrendingList(day).
-  then(items => items.map(i => i.name))
+  return poporing.getTrendingList(day)
+  .then(items => items.map(i => i.name))
   .then(poporing.getLatestPrices)
   .then(response => response.data)
   .then(mapItemPriceDataList);
+}
+
+const getAllTrendingList = () => {
+
+  return poporing.getTrendingList()
+  .then(data => {
+
+    const allItems = [].concat(data.item_list)
+      .concat(data.item_list_full_1day)
+      .concat(data.item_list_full_3day)
+      .concat(data.item_list_full_7day)
+    const names = allItems.map(i => i.name);
+
+    return poporing.getLatestPrices(names)
+    .then(response => response.data)
+    .then(mapItemPriceDataList)
+    .then(itemPrices => {
+
+      const newData = {};
+      newData.trend = data.item_list.map(i => {
+        i.priceData = itemPrices.find(ip => ip.name === i.name).priceData;
+        i.price = (i.priceData.price)? i.priceData.price.toLocaleString() : 'Unknown';
+        i.volume = (i.priceData.volume)? i.priceData.volume.toLocaleString() : 'Unknown';
+        return i;
+      });
+
+      newData.trend1d = data.item_list_full_1day.map(i => {
+        i.priceData = itemPrices.find(ip => ip.name === i.name).priceData;
+        i.price = (i.priceData.price)? i.priceData.price.toLocaleString() : 'Unknown';
+        i.volume = (i.priceData.volume)? i.priceData.volume.toLocaleString() : 'Unknown';
+        return i;
+      });
+
+      newData.trend3d = data.item_list_full_3day.map(i => {
+        i.priceData = itemPrices.find(ip => ip.name === i.name).priceData;
+        i.price = (i.priceData.price)? i.priceData.price.toLocaleString() : 'Unknown';
+        i.volume = (i.priceData.volume)? i.priceData.volume.toLocaleString() : 'Unknown';
+        return i;
+      });
+
+      newData.trend7d = data.item_list_full_7day.map(i => {
+        i.priceData = itemPrices.find(ip => ip.name === i.name).priceData;
+        i.price = (i.priceData.price)? i.priceData.price.toLocaleString() : 'Unknown';
+        i.volume = (i.priceData.volume)? i.priceData.volume.toLocaleString() : 'Unknown';
+        return i;
+      });
+      return newData;
+    });
+  });
 }
 
 const getCards = cardType => {
@@ -103,5 +166,6 @@ module.exports = {
   searchItemNames,
   getLatestPrices,
   getTrendingList,
+  getAllTrendingList,
   getCards
 }

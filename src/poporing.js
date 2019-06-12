@@ -61,6 +61,10 @@ module.exports = {
         return axios.get(url, { headers: poporingConfig.headers })
             .then(response => response.data)
             .then(response => {
+
+                if(!day) {
+                    return response.data;
+                }
                 switch(day) {
                     case 1: return response.data.item_list;
                     case 3: return response.data.item_list_full_1day;

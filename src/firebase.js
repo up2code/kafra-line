@@ -77,18 +77,18 @@ module.exports = {
             });
         });
     },
-    getAllEvents: () => {
+    getNonWeeklyEvents: () => {
 
-        const key = 'firebase_get_all_events';
+        const key = 'firebase_get_non_weekly_events';
 
         return cache.get(key)
         .then(value => {
             if(value) {
-                console.log('Cache [' + key + '] exists. Get all events from cache.');
+                console.log('Cache [' + key + '] exists. Get non weekly events from cache.');
                 return value;
             }
 
-            console.log('Cache [' + key + '] not found. Get all events from firebase.');
+            console.log('Cache [' + key + '] not found. Get non weekly events from firebase.');
 
             return db.collection('events').get()
             .then((snapshot) => {
@@ -109,6 +109,51 @@ module.exports = {
                     if(a.startTime === b.startTime) return 0;
                     if(a.startTime > b.startTime) return 1;
                 });
+
+                console.log(events)
+
+                console.log('Save cache [' + key + ']');
+                cache.set(key, events)
+    
+                return events;
+              })
+            .catch((err) => {
+                console.log('Error getting documents', err);
+            });
+        });
+    },
+    getWeeklyEvents: () => {
+
+        const key = 'firebase_get_weekly_events';
+
+        return cache.get(key)
+        .then(value => {
+            if(value) {
+                console.log('Cache [' + key + '] exists. Get Weekly events from cache.');
+                return value;
+            }
+
+            console.log('Cache [' + key + '] not found. Get Weekly events from firebase.');
+
+            return db.collection('events').get()
+            .then((snapshot) => {
+    
+                let events = [];
+
+                snapshot.forEach((doc) => {
+                    let event = doc.data();
+                    if(event.weekly) {
+                        events.push(romEvents.mapWeeklyEvent(event));
+                    }
+                });
+
+                events = events.sort((a, b) => {
+                    if(a.startTime < b.startTime) return -1;
+                    if(a.startTime === b.startTime) return 0;
+                    if(a.startTime > b.startTime) return 1;
+                });
+
+                console.log(events)
 
                 console.log('Save cache [' + key + ']');
                 cache.set(key, events)
