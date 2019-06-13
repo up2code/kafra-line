@@ -63,6 +63,9 @@ const generateItemLine2 = (item) => {
 
   let score = (item.score) ? item.score : 0;
   let color = (item.score > 0)? '#64dd17' : '#b71c1c';
+  let scoreText = (item.score == 0)? "0" 
+  : (item.score > 0)? "+" + score.toFixed(2) + "%"
+  : score.toFixed(2) + "%";
 
   return {
     "type": "box",
@@ -70,7 +73,7 @@ const generateItemLine2 = (item) => {
     "contents": [
       {
         "type": "text",
-        "text": score,
+        "text": scoreText,
         "size": "sm",
         "color": color,
         "flex": 1
@@ -171,8 +174,6 @@ const generateBubble = content => {
   }
 }
 module.exports = generate = data => {
-
-  console.log(data);
 
   const trendBox = generateTrendingSection('TOP TRENDING', data.trend);
   const trend1dBox = generateTrendingSection('24 HOURS', data.trend1d);
