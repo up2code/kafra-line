@@ -110,28 +110,31 @@ const getAllTrendingList = () => {
       newData.trend = data.item_list.map(i => {
         i.priceData = itemPrices.find(ip => ip.name === i.name).priceData;
         i.price = (i.priceData.price)? i.priceData.price.toLocaleString() : 'Unknown';
-        i.volume = (i.priceData.volume)? i.priceData.volume.toLocaleString() : 'Unknown';
+        i.volume = (i.priceData.volume)? i.priceData.volume.toLocaleString() : '0';
         return i;
       });
 
       newData.trend1d = data.item_list_full_1day.map(i => {
         i.priceData = itemPrices.find(ip => ip.name === i.name).priceData;
         i.price = (i.priceData.price)? i.priceData.price.toLocaleString() : 'Unknown';
-        i.volume = (i.priceData.volume)? i.priceData.volume.toLocaleString() : 'Unknown';
+        i.volume = (i.priceData.volume)? i.priceData.volume.toLocaleString() : '0';
+        i.score = i.priceData.change1day;
         return i;
       });
 
       newData.trend3d = data.item_list_full_3day.map(i => {
         i.priceData = itemPrices.find(ip => ip.name === i.name).priceData;
         i.price = (i.priceData.price)? i.priceData.price.toLocaleString() : 'Unknown';
-        i.volume = (i.priceData.volume)? i.priceData.volume.toLocaleString() : 'Unknown';
+        i.volume = (i.priceData.volume)? i.priceData.volume.toLocaleString() : '0';
+        i.score = i.priceData.change3day;
         return i;
       });
 
       newData.trend7d = data.item_list_full_7day.map(i => {
         i.priceData = itemPrices.find(ip => ip.name === i.name).priceData;
         i.price = (i.priceData.price)? i.priceData.price.toLocaleString() : 'Unknown';
-        i.volume = (i.priceData.volume)? i.priceData.volume.toLocaleString() : 'Unknown';
+        i.volume = (i.priceData.volume)? i.priceData.volume.toLocaleString() : '0';
+        i.score = i.priceData.change7day;
         return i;
       });
       return newData;
