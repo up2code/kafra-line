@@ -1,11 +1,42 @@
-const generateItemLine = (name, price) => {
+
+
+/*
+[
+  { 
+    name: 'hydra_blueprint',
+    display_name: 'Hydra Blueprint',
+    score: 38.94276304889254,
+    price: '1,568,190',
+    volume: '12',
+    priceData: { price: 1568190,
+      volume: 12,
+      timestamp: 1560407422,
+      snapping: -1,
+      change1day: -2.741887143777221,
+      change3day: 7.469971333391356,
+      change7day: 38.94276304889254,
+      vchange1day: 500,
+      vchange3day: 500,
+      vchange7day: 1100,
+      change6hour: 0,
+      changeprevious: 0,
+      vchange6hour: -8.333333333333334,
+      vchangeprevious: -8.333333333333334,
+      previous_timestamp: 1560399197 
+    },
+  } 
+]
+*/
+
+const generateItemLine1 = (item) => {
   return {
     "type": "box",
     "layout": "horizontal",
+    "margin": "xl",
     "contents": [
       {
         "type": "text",
-        "text": name,
+        "text": item.display_name,
         "size": "sm",
         "color": "#555555",
         "flex": 1
@@ -17,7 +48,41 @@ const generateItemLine = (name, price) => {
         "contents": [
           {
             "type": "text",
-            "text": `${price} z`,
+            "text": `${item.volume} ea`,
+            "size": "sm",
+            "color": "#111111",
+            "align": "end"
+          }
+        ]
+      }
+    ]
+  }
+}
+
+const generateItemLine2 = (item) => {
+
+  let score = (item.score) ? item.score : 0;
+  let color = (item.score > 0)? '#64dd17' : '#b71c1c';
+
+  return {
+    "type": "box",
+    "layout": "horizontal",
+    "contents": [
+      {
+        "type": "text",
+        "text": score,
+        "size": "sm",
+        "color": color,
+        "flex": 1
+      },
+      {
+        "type": "box",
+        "layout": "horizontal",
+        "flex": 1,
+        "contents": [
+          {
+            "type": "text",
+            "text": `${item.price} z`,
             "size": "sm",
             "color": "#111111",
             "align": "end"
@@ -47,7 +112,8 @@ const generateTrendingSection = (name, items) => {
   section.push(header);
 
   items.forEach(i => {
-    section.push(generateItemLine(i.display_name, i.price));
+    section.push(generateItemLine1(i));
+    section.push(generateItemLine2(i));
   });
 
   section.push(separator);
