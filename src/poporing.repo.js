@@ -1,5 +1,6 @@
 const poporing = require('./poporing');
 const Fuse = require('fuse.js');
+const chart = require('./chart');
 
 const mapLastKnownPrice = i => {
   if(i.data.price == 0) i.data.price = i.data.last_known_price;
@@ -82,6 +83,10 @@ const getLatestPrices = query => {
     .then(mapItemPriceDataList)
 }
 
+const getPriceHistories = names => {
+  return Promise.all(names.map(poporing.getPriceHistory));
+}
+
 const getTrendingList = day => {
   return poporing.getTrendingList(day)
   .then(items => items.map(i => i.name))
@@ -138,6 +143,20 @@ const getAllTrendingList = () => {
         return i;
       });
       return newData;
+    })
+    .then(trends => {
+        let names = trends.trend.map(i => i.name);
+        return getPriceHistories(names)
+        .then(arr => {
+
+          trends.trend.map(t => {
+            t.priceHistory = arr.find(a => a.item_name === t.name).data_list;
+            t.chartUrl = chart.genPoporingChartUrl(t.priceHistory);
+            return t;
+          });
+
+          return trends;
+        });
     });
   });
 }

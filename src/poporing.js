@@ -42,6 +42,27 @@ module.exports = {
             });
         })
     },
+    getPriceHistory: name => {
+        const key = 'poporing_get_price_history';
+        let url = poporingConfig.api + "/get_price_history/" + name;
+
+        console.log('GET ' + url);
+
+        return cache.get(key)
+        .then(value => {
+
+            if(value) {
+                return value;
+            }
+
+            return axios.get(url, { headers: poporingConfig.headers })
+            .then(response => response.data)
+            .then(response => {
+                cache.set(key, response.data)
+                return response.data;
+            });
+        });
+    },
     getLatestPrices: (names) => {
         let conf = {
             method: 'post',

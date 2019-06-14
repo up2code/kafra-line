@@ -96,6 +96,14 @@ const generateItemLine2 = (item) => {
   }
 }
 
+const generateTrendChart = url => {
+  return {
+    "type": "image",
+    "url": url,
+    "size": "full"
+  };
+}
+
 const generateTrendingSection = (name, items) => {
   let section = [];
 
@@ -117,6 +125,9 @@ const generateTrendingSection = (name, items) => {
   items.forEach(i => {
     section.push(generateItemLine1(i));
     section.push(generateItemLine2(i));
+    if(i.chartUrl) {
+      section.push(generateTrendChart(i.chartUrl));
+    }
   });
 
   section.push(separator);
