@@ -97,9 +97,7 @@ module.exports = {
 
                 snapshot.forEach((doc) => {
                     let event = doc.data();
-                    if(event.weekly) {
-                        events.push(romEvents.mapWeeklyEvent(event));
-                    } else {
+                    if(!event.weekly) {
                         events.push(romEvents.mapEvent(event));
                     }
                 });
