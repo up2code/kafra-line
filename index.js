@@ -22,7 +22,7 @@ app.post('/callback', lineConfig.middleware, (req, res) => {
         lineConfig.client.replyMessage(event.replyToken, message)
         .catch((err) => {
             console.error(err);
-            lineConfig.client.pushMessage(sourceId, { type: 'text', text: 'Something wrong inside me....'})
+            lineConfig.client.pushMessage(sourceId, { type: 'text', text: 'เกิดข้อผิดพลาดบางอย่างไม่สามารถประมวลผลคำสั่งได้ ถ้ายังไงลองดูอีกทีนะคะ หรือติดต่อคนสร้าง (@up2up) ได้เลยค่ะ'})
         });
       }
       
