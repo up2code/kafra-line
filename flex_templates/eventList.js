@@ -25,7 +25,7 @@ const generatePlainText = events => {
 
   return {
     type: 'text',
-    text: events.map(e => `*${e.name}*\n${e.start} - ${e.end}\n${description}`).join('\n\n')
+    text: events.map(e => `*${e.name}*\n${e.start} - ${e.end}\n${e.description}`).join('\n\n')
   }
 }
 
