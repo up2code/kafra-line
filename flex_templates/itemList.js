@@ -29,7 +29,13 @@ const generateFlex = items => {
 const generatePlainText = items => {
   return {
     type: 'text',
-    text: items.map(i => `${i.display_name}: ${i.priceData.price}z`).join('\n')
+    text: items.map(i => {
+      let price = (i.priceData.price) ? i.priceData.price.toLocaleString() + 'z' : 'Unknown';
+      let volume = (i.priceData.volume) ? i.priceData.volume.toLocaleString() + 'ea' : '0ea';
+
+      return `${i.display_name}: ${volume}|${price}`;
+      } 
+    ).join('\n')
   }
 }
 
