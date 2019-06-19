@@ -15,6 +15,14 @@ const sortPriceAsc = (a, b) => {
   return 0;
 }
 
+const sortPriceDesc = (a, b) => {
+  if (a.priceData.price > b.priceData.price)
+  return -1;
+  if (a.priceData.price < b.priceData.price)
+      return 1;
+  return 0;
+}
+
 const itemContainName = (item, name) => {
   return item.name.toLocaleLowerCase().includes(name) || 
   item.display_name.toLocaleLowerCase().includes(name) || 
@@ -182,6 +190,18 @@ const getCards = cardType => {
   .then(items => items.filter((v,i) => i <= limitRecords).join('\n').substring(0, 2000));
 }
 
+const getActiveItemPricesByCategory = category => {
+  return poporing.getItemList()
+  .then(data => data.item_list)
+  .then(items => items.filter(i => i.item_type === category))
+  .then(items => items.map(i => i.name))
+  .then(poporing.getLatestPrices)
+  .then(response => response.data)
+  .then(mapItemPriceDataList)
+  .then(items => items.sort(sortPriceDesc))
+  .then(items => items.filter(i => i.priceData.change3day));
+}
+
 module.exports = {
   mapItemPriceDataList,
   itemContainName,
@@ -189,5 +209,6 @@ module.exports = {
   getLatestPrices,
   getTrendingList,
   getAllTrendingList,
-  getCards
+  getCards,
+  getActiveItemPricesByCategory
 }
