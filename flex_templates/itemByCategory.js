@@ -1,3 +1,5 @@
+const _ = require('underscore');
+
 /*
 [
   { name: 'time_twister',
@@ -135,16 +137,20 @@ const generateBubble = content => {
 }
 module.exports = generate = items => {
 
-  const trendBox = generateSection(items);
+  const contents = [];
+
+  chunkItems = _.chunk(items, 10);
+
+  chunkItems.forEach(items => {
+    contents.push(generateBubble(generateSection(items)));
+  });
 
   return {
     type: 'flex',
     altText: 'Material prices',
     contents: { 
       type: 'carousel', 
-      contents: [
-        generateBubble(trendBox)
-      ]
+      contents
     }
   };
 
