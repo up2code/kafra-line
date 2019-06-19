@@ -29,4 +29,4 @@ const generatePlainText = events => {
   }
 }
 
-module.exports = generatePlainText;
+module.exports = generateFlex;
