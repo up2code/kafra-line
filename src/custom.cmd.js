@@ -1,5 +1,6 @@
 const firebase = require('./firebase');
 const eventListTemplate = require('./../flex_templates/eventList');
+const testTemplate = require('./../flex_templates/test_template');
 const trendingTemplate = require('./../flex_templates/trending');
 const itemByCategoryTemplate = require('./../flex_templates/itemByCategory');
 const poporingRepo = require('./poporing.repo');
@@ -13,4 +14,5 @@ module.exports = {
     'bluecards': () => poporingRepo.getCards('blue').then(lineMessage.createTextMessage),
     'trending': () => poporingRepo.getAllTrendingList().then(trendingTemplate),
     'materials': () => poporingRepo.getActiveItemPricesByCategory('Material').then(itemByCategoryTemplate),
+    'testtemplate': () => testTemplate(),
 }
