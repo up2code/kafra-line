@@ -39,4 +39,4 @@ const generatePlainText = items => {
   }
 }
 
-module.exports = generatePlainText;
+module.exports = generateFlex;
