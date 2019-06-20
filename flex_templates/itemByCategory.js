@@ -135,7 +135,7 @@ const generateBubble = content => {
     }
   }
 }
-module.exports = generate = items => {
+module.exports = generate = (altText, items) => {
 
   const contents = [];
 
@@ -147,7 +147,7 @@ module.exports = generate = items => {
 
   return {
     type: 'flex',
-    altText: 'Material prices',
+    altText,
     contents: { 
       type: 'carousel', 
       contents
