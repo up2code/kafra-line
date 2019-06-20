@@ -172,22 +172,21 @@ const getAllTrendingList = () => {
 const getCards = cardType => {
 
   const limitPrice = 2000000
-  const limitRecords = 10;
 
-  return poporing.getAllLatestPrices()
-  .then(items => items.filter(i => i.item_name.endsWith('card')))
-  .then(items => items.map(mapLastKnownPrice))
-  .then(items => items.filter(i => i.data.price > 0 && i.data.price < limitPrice))
-  .then(mapItemPriceDataList)
+  return poporing.getItemList()
+  .then(data => data.item_list)
   .then(items => items.filter(i => {
     if(cardType == 'grey') return /Common.*Card/.test(i.item_type);
     if(cardType == 'green') return /Uncommon.*Card/.test(i.item_type);
     if(cardType == 'blue') return /Rare.*Card/.test(i.item_type);
     return false;
   }))
+  .then(items => items.map(i => i.name))
+  .then(poporing.getLatestPrices)
+  .then(response => response.data)
+  .then(mapItemPriceDataList)
+  .then(items => items.filter(i => i.priceData.price > 0 && i.priceData.price < limitPrice))
   .then(items => items.sort(sortPriceAsc))
-  .then(items => items.map(i => i.display_name + '(' + i.item_type + '):' + i.priceData.price.toLocaleString()))
-  .then(items => items.filter((v,i) => i <= limitRecords).join('\n').substring(0, 2000));
 }
 
 const getActiveItemPricesByCategory = category => {
