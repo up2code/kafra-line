@@ -5,6 +5,8 @@ Also you can customize this bot for other game or as you want.
 
 This project just made for fun and for study how to create own LINE bot.
 
+Video demo: https://www.youtube.com/watch?v=6zaEf3WksLg
+
 ## Requirement
 
 - [Heroku](https://dashboard.heroku.com) - For deploy bot. Or you can use your own server if you have one. But for this I'll use Heroku for reference.
