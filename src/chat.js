@@ -5,7 +5,6 @@ const chance = new Chance();
 
 const gachaAnswer = answers => {
     
-    console.log(JSON.stringify(answers))
 
     let totalChance = answers.reduce((total, answer) => total + Number(answer.chance), 0);
     let dice = chance.integer({min: 1, max: totalChance})
@@ -14,6 +13,8 @@ const gachaAnswer = answers => {
         rateTotal += answers[i].chance;
         answers[i].rate = rateTotal;
     }
+    
+    console.log(JSON.stringify(answers))
 
     console.log('total chance : ' + totalChance)
     console.log('dice : ' + dice)
