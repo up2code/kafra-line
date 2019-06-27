@@ -6,14 +6,16 @@ const chance = new Chance();
 const gachaAnswer = answers => {
     
 
-    let totalChance = answers.reduce((total, answer) => total + Number(answer.chance), 0);
+    let totalChance = answers
+    .sort(function(a,b){ return a.chance - b.chance})
+    .reduce((total, answer) => total + Number(answer.chance), 0);
     let dice = chance.integer({min: 1, max: totalChance})
     let rateTotal = 0;
     for(var i=0;i<answers.length;i++) {
-        rateTotal += answers[i].chance;
+        rateTotal += Number(answers[i].chance);
         answers[i].rate = rateTotal;
     }
-    
+
     console.log(JSON.stringify(answers))
 
     console.log('total chance : ' + totalChance)
