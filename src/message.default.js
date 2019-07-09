@@ -1,6 +1,7 @@
 const Chance = require('chance')
+const config = require('./../global_config.json'); 
 
 module.exports = {
-    "command_not_found": [ "ไม่รู้จัก{}เลยค่ะ", "{}คืออะไรคะ? ' ')? ", "ไม่มี{}นะคะ", "{}ไม่มีในความทรงจำของฉันเลยค่ะ", "ไม่พบคำสั่ง{} ค่ะ ลองพิมพ์ !help เพื่อดูคำสั่งที่ถูกต้องนะคะ"],
-    "item_not_found": [ "ไม่รู้จัก{}เลยค่ะ", "{}คืออะไรคะ? ' ')? ", "ไม่มี{}นะคะ", "{}ไม่มีในความทรงจำของฉันเลยค่ะ", "ไม่พบไอเท็ม{} ค่ะ", "ไอ้นี่มันมีอยู่จริงๆเหรอคะ?"]
+    "command_not_found": config.message.command_not_found,
+    "item_not_found": config.message.item_not_found
 }

@@ -31,6 +31,9 @@ Access your Dyno and check at tab **settings** and **Reveal Config Vars**. you c
 - Webhook URL: __https://{your_heroku_app_name}.herokuapp.com/callback__.
 - If you wish your bot can join group chats. Then enable __Allow bot to join group chats__.
 
+## Global config
+Any config can put here as you want. You can overwrite global_config.json via Firebase too. Sample structure is in sample/app.json. Restart is need for update config.
+
 ## Usage
 
 ### Query item from poporing.life

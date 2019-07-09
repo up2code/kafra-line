@@ -6,6 +6,7 @@ const Chance = require('chance')
 const chance = new Chance();
 const fs = require('fs');
 const customCmd = require('./custom.cmd');
+const globalConfig = require('./../global_config.json');
 
 const compare = (a,b) => {
     if (a.name < b.name)
@@ -16,7 +17,7 @@ const compare = (a,b) => {
 }
 
 const generateHelp = cmdList => {
-    let content = 'ทุกคำสั่งกรุณาใส่เครื่องหมาย ! นำหน้าด้วยนะคะ (เช่น !taming)\n';
+    let content = globalConfig.message.prefix_help + '\n';
 
     content += cmdList
         .sort(compare)

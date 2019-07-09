@@ -3,6 +3,7 @@ const axios = require('axios');
 const cache = require('./cache');
 const moment = require('moment');
 const romEvents = require('./rom.events');
+const fs = require('fs');
 // For local development
 // var serviceAccount = require('./../serviceAccountKey.json');
 
@@ -214,6 +215,39 @@ module.exports = {
                 cache.set(key, list)
     
                 return list;
+              })
+            .catch((err) => {
+                console.log('Error getting documents', err);
+            });
+        });
+    },
+    getAppConfig: () => {
+
+        const key = 'firebase_get_app_config';
+
+        return cache.get(key)
+        .then(value => {
+
+            if(value) {
+                console.log('Cache [' + key + '] exists. Get config from cache.');
+                return value;
+            }
+
+            console.log('Cache [' + key + '] not found. Get config from firebase');
+
+            return db.collection('app').get()
+            .then((snapshot) => {
+
+                let appConfig = {}
+                snapshot.docs.forEach((doc) => {
+                    appConfig[doc.id] = doc.data();
+                })
+                
+                fs.writeFileSync(__dirname + '/../global_config.json', JSON.stringify(appConfig),{encoding:'utf8',flag:'w'});
+    
+                console.log('config updated!');
+
+                return appConfig;
               })
             .catch((err) => {
                 console.log('Error getting documents', err);

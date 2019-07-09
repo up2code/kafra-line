@@ -3,6 +3,7 @@
 const lineConfig = require('./src/line.config');
 const eventMessageHandler = require('./src/event-message.handler');
 const express = require('express');
+const firebase = require('./src/firebase');
 
 const app = express();
 
@@ -38,4 +39,5 @@ app.get('/',(req, res) => {
 const port = process.env.PORT || 3200;
 app.listen(port, () => {
   console.log(`listening on ${port}`);
+  firebase.getAppConfig();
 });
