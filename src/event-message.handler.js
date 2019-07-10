@@ -31,7 +31,7 @@ module.exports = event => {
 
     const text = event.message.text;
 
-    if(!text) return chance.pickone(botMessage.item_not_found);
+    if(!text) return chance.pickone(botMessage().item_not_found);
 
     const cmdType = getMessageCmdType(text);
 
@@ -43,7 +43,7 @@ module.exports = event => {
         if(priceList && priceList.length) {
             return itemListTemplate(priceList);
         } else {
-            return lineMessage.createTextMessage(format(chance.pickone(botMessage.item_not_found), remainText));
+            return lineMessage.createTextMessage(format(chance.pickone(botMessage().item_not_found), remainText));
         }
     }
 
@@ -51,7 +51,7 @@ module.exports = event => {
         if(priceList && priceList.length) {
             return itemListRomExTemplate(priceList);
         } else {
-            return lineMessage.createTextMessage(format(chance.pickone(botMessage.item_not_found), remainText));
+            return lineMessage.createTextMessage(format(chance.pickone(botMessage().item_not_found), remainText));
         }
     }
 

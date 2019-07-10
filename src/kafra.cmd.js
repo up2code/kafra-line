@@ -96,7 +96,7 @@ module.exports = {
             var action = cmdList.find(act => act.name === cmd || (act.alias && act.alias.indexOf(cmd) != -1));
 
             if(!action) {
-                return lineMessage.createTextMessage(format(chance.pickone(botMessage.command_not_found), cmd));
+                return lineMessage.createTextMessage(format(chance.pickone(botMessage().command_not_found), cmd));
             }
 
             return validateAndRunAction(action);
