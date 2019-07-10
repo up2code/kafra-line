@@ -1,5 +1,4 @@
-const Chance = require('chance')
-const config = require('./../global_config.json'); 
+const config = require('./config'); 
 
 module.exports = {
     "command_not_found": config.message.command_not_found,

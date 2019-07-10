@@ -6,7 +6,7 @@ const Chance = require('chance')
 const chance = new Chance();
 const fs = require('fs');
 const customCmd = require('./custom.cmd');
-const globalConfig = require('./../global_config.json');
+const config = require('./config');
 
 const compare = (a,b) => {
     if (a.name < b.name)
@@ -17,7 +17,7 @@ const compare = (a,b) => {
 }
 
 const generateHelp = cmdList => {
-    let content = globalConfig.message.prefix_help + '\n';
+    let content = config.message.prefix_help + '\n';
 
     content += cmdList
         .sort(compare)
