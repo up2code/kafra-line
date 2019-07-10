@@ -253,6 +253,8 @@ module.exports = {
                         console.log(`config updated! (${destinationConfigFile})`);
                     }
                 });
+
+                console.log(JSON.stringify(appConfig));
     
                 return appConfig;
               })
