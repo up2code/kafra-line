@@ -242,11 +242,18 @@ module.exports = {
                 snapshot.docs.forEach((doc) => {
                     appConfig[doc.id] = doc.data();
                 })
-                
-                fs.writeFileSync(__dirname + '/../global_config.json', JSON.stringify(appConfig),{encoding:'utf8',flag:'w'});
-    
-                console.log('config updated!');
 
+                const destinationConfigFile = `${__dirname}/../global_config.json`;
+                
+                fs.writeFile(destinationConfigFile, JSON.stringify(appConfig),{encoding:'utf8',flag:'w'}, err => {
+                    if(err) {
+                        console.log(`Failed to write config json file from firebase to ${destinationConfigFile}`);
+                        console.error(err);
+                    } else {
+                        console.log(`config updated! (${destinationConfigFile})`);
+                    }
+                });
+    
                 return appConfig;
               })
             .catch((err) => {
