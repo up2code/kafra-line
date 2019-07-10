@@ -1,5 +1,5 @@
 const fs = require('fs');
 
-var config = JSON.parse(fs.readFileSync(`${__dirname}/../global_config.json`));
-
-module.exports = config;
+module.exports = () => {
+  return JSON.parse(fs.readFileSync(`${__dirname}/../global_config.json`));
+};

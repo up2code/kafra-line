@@ -17,7 +17,7 @@ const compare = (a,b) => {
 }
 
 const generateHelp = cmdList => {
-    let content = config.message.prefix_help + '\n';
+    let content = config().message.prefix_help + '\n';
 
     content += cmdList
         .sort(compare)
