@@ -223,19 +223,7 @@ module.exports = {
     },
     getAppConfig: () => {
 
-        const key = 'firebase_get_app_config';
-
-        return cache.get(key)
-        .then(value => {
-
-            if(value) {
-                console.log('Cache [' + key + '] exists. Get config from cache.');
-                return value;
-            }
-
-            console.log('Cache [' + key + '] not found. Get config from firebase');
-
-            return db.collection('app').get()
+        return db.collection('app').get()
             .then((snapshot) => {
 
                 let appConfig = {}
@@ -257,11 +245,7 @@ module.exports = {
                 console.log(JSON.stringify(appConfig));
     
                 return appConfig;
-              })
-            .catch((err) => {
-                console.log('Error getting documents', err);
             });
-        });
     },
     downloadFile: filename => {
         return admin.storage().bucket().file(filename).download({
