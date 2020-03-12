@@ -198,7 +198,8 @@ const getActiveItemPricesByCategory = category => {
   .then(response => response.data)
   .then(mapItemPriceDataList)
   .then(items => items.sort(sortPriceDesc))
-  .then(items => items.filter(i => i.priceData.change3day));
+  .then(items => items.filter(i => i.priceData.change3day))
+  .then(items => items.slice(0, 50));
 }
 
 module.exports = {
