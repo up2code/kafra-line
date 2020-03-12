@@ -139,7 +139,7 @@ module.exports = generate = (altText, items) => {
 
   const contents = [];
 
-  chunkItems = _.chunk(items, 10);
+  chunkItems = _.chunk(items, 20);
 
   chunkItems.forEach(items => {
     contents.push(generateBubble(generateSection(items)));
