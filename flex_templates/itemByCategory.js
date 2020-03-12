@@ -137,9 +137,14 @@ const generateBubble = content => {
 }
 module.exports = generate = (altText, items) => {
 
+  const maxItemPerPage = 20;
   const contents = [];
 
-  chunkItems = _.chunk(items, 20);
+  chunkItems = _.chunk(items, maxItemPerPage);
+
+  console.log('Total items : ' + items.length);
+  console.log('Total pages : ' + chunkItems.length);
+  console.log('Max item per page : ' + maxItemPerPage);
 
   chunkItems.forEach(items => {
     contents.push(generateBubble(generateSection(items)));
