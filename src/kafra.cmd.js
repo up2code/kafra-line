@@ -29,7 +29,7 @@ const generateHelp = cmdList => {
 const validateAndRunAction = action => {
 
     if(!action.type || action.type == 'text') {
-        return lineMessage.createTextMessage(action.value.replace("\\n", "\n"));
+        return lineMessage.createTextMessage(action.value.replace(/\\n/g, "\n"));
     }
 
     if(action.type == 'custom') {
