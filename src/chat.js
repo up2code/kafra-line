@@ -49,7 +49,7 @@ module.exports = text => {
         
         switch(answer.type) {
             case 'text':
-                return lineMessage.createTextMessage(answer.value);
+                return lineMessage.createTextMessage(answer.value.replace("\\n", "\n"));
             case 'image':
                 return lineMessage.createImageMessage(answer.value, answer.value);
         }

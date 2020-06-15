@@ -29,7 +29,7 @@ const generateHelp = cmdList => {
 const validateAndRunAction = action => {
 
     if(!action.type || action.type == 'text') {
-        return lineMessage.createTextMessage(action.value);
+        return lineMessage.createTextMessage(action.value.replace("\\n", "\n"));
     }
 
     if(action.type == 'custom') {
@@ -49,6 +49,11 @@ const validateAndRunAction = action => {
         let replyMsg = (action.description) ? action.description + '\n' + action.value : action.value;
 
         return lineMessage.createTextMessage(replyMsg);
+    }
+
+    if(action.type == 'mix') {
+        let results = action.values.map(act => validateAndRunAction(act));
+        return results;
     }
 
     if(action.type == 'file') {
